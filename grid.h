@@ -50,4 +50,8 @@ public:
     unsigned int get_alive_cells();
 
     unsigned int get_dead_cells();
+
+    void resize(unsigned int square_size);
+
+    void resize(unsigned int width, unsigned int height);
 };
