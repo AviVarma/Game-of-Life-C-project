@@ -28,7 +28,7 @@
  *      Grid grid;
  *
  */
-
+Grid::Grid(): width(0), height(0){}
 
 /**
  * Grid::Grid(square_size)
@@ -53,7 +53,10 @@
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-
+Grid::Grid(unsigned int square_grid){
+    this->height = square_grid;
+    this->width = square_grid;
+}
 
 /**
  * Grid::Grid(width, height)
@@ -71,7 +74,10 @@
  * @param height
  *      The height of the grid.
  */
-
+Grid::Grid(unsigned int width, unsigned int height){
+    this->width = width;
+    this->height = height;
+}
 
 /**
  * Grid::get_width()
