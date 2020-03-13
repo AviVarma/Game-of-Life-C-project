@@ -8,7 +8,7 @@
  *
  * You are encouraged to use STL container types as an underlying storage mechanism for the grid cells.
  *
- * @author YOUR_STUDENT_NUMBER
+ * @author 957552
  * @date March, 2020
  */
 #include "grid.h"
@@ -106,7 +106,7 @@ Grid::Grid(unsigned int width, unsigned int height){
  * @return
  *      The width of the grid.
  */
-unsigned int Grid::get_width() {
+unsigned int Grid::get_width() const{
     return width;
 }
 
@@ -133,7 +133,7 @@ unsigned int Grid::get_width() {
  * @return
  *      The height of the grid.
  */
-unsigned int Grid::get_height() {
+unsigned int Grid::get_height() const{
     return height;
 }
 
@@ -160,7 +160,7 @@ unsigned int Grid::get_height() {
  * @return
  *      The number of total cells.
  */
-unsigned int Grid::get_total_cells() {
+unsigned int Grid::get_total_cells() const{
     return total_cells;
 }
 

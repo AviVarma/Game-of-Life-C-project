@@ -5,7 +5,7 @@
  * The test suites provide granular BDD style (Behaviour Driven Development) test cases
  * which will help further understand the specification you need to code to.
  *
- * @author YOUR_STUDENT_NUMBER
+ * @author 957552
  * @date March, 2020
  */
 #pragma once
@@ -42,22 +42,22 @@ public:
 
     ~Grid();
 
-    unsigned int get_width();
+    unsigned int get_width() const;
 
-    unsigned int get_height();
+    unsigned int get_height() const;
 
-    unsigned int get_total_cells();
+    unsigned int get_total_cells() const;
 
-    unsigned int get_alive_cells();
+    unsigned int get_alive_cells() const;
 
-    unsigned int get_dead_cells();
+    unsigned int get_dead_cells() const;
 
     void resize(unsigned int square_size);
 
     void resize(unsigned int width, unsigned int height);
 
-    int get_index(unsigned int x, unsigned int y);
+    int get_index(unsigned int x, unsigned int y) const;
 
-    int get(unsigned int x, unsigned int y);
+    int get(unsigned int x, unsigned int y) const;
 
 };
