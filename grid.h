@@ -29,9 +29,10 @@ class Grid {
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
 private:
-    //unsigned int square_grid;
+    unsigned int total_cells;
     unsigned int width;
     unsigned int height;
+    unsigned int grid[];
 public:
     Grid();
 
