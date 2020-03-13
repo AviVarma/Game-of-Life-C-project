@@ -32,7 +32,9 @@ private:
     unsigned int total_cells;
     unsigned int width;
     unsigned int height;
-    unsigned int grid[];
+    unsigned int alive_cells;
+    unsigned int dead_cells;
+    char * grid;
 public:
     Grid();
 
@@ -48,9 +50,9 @@ public:
 
     unsigned int get_total_cells() const;
 
-    unsigned int get_alive_cells() const;
+    unsigned int get_alive_cells();
 
-    unsigned int get_dead_cells() const;
+    unsigned int get_dead_cells();
 
     void resize(unsigned int square_size);
 
