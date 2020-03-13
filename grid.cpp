@@ -29,7 +29,11 @@
  *
  */
 Grid::Grid(): width(0), height(0), total_cells(0){
-    grid[width*height];
+    grid = new char[width*height];
+
+    for(int i=0; i<total_cells; i++){
+        grid[i] = DEAD;
+    }
 }
 
 /**
@@ -58,7 +62,12 @@ Grid::Grid(): width(0), height(0), total_cells(0){
 Grid::Grid(unsigned int square_grid){
     this->height = square_grid;
     this->width = square_grid;
-    grid[width*height];
+    this->total_cells = height*width;
+    grid = new char[total_cells];
+
+    for(int i=0; i<total_cells; i++){
+        grid[i] = DEAD;
+    }
 }
 
 /**
@@ -80,7 +89,13 @@ Grid::Grid(unsigned int square_grid){
 Grid::Grid(unsigned int width, unsigned int height){
     this->width = width;
     this->height = height;
-    grid[width*height];
+    this->total_cells = height*width;
+    grid = new char[total_cells];
+
+    for(int i=0; i<total_cells; i++){
+        grid[i] = DEAD;
+    }
+
 }
 
 /**
@@ -187,7 +202,15 @@ unsigned int Grid::get_total_cells() const{
  * @return
  *      The number of alive cells.
  */
-
+unsigned int Grid::get_alive_cells() {
+    alive_cells = 0;
+    for(int i=0; i<total_cells; i++){
+        if(grid[i] == DEAD){
+            alive_cells++;
+        }
+    }
+    return alive_cells;
+}
 
 /**
  * Grid::get_dead_cells()
@@ -212,7 +235,15 @@ unsigned int Grid::get_total_cells() const{
  * @return
  *      The number of dead cells.
  */
-
+unsigned int Grid::get_dead_cells() {
+    dead_cells = 0;
+    for(int i=0; i<total_cells; i++){
+        if(grid[i] == ALIVE){
+            dead_cells++;
+        }
+    }
+    return dead_cells;
+}
 
 /**
  * Grid::resize(square_size)
