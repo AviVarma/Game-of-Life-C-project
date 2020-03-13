@@ -28,7 +28,9 @@
  *      Grid grid;
  *
  */
-Grid::Grid(): width(0), height(0){}
+Grid::Grid(): width(0), height(0), total_cells(0){
+    grid[width*height];
+}
 
 /**
  * Grid::Grid(square_size)
@@ -56,6 +58,7 @@ Grid::Grid(): width(0), height(0){}
 Grid::Grid(unsigned int square_grid){
     this->height = square_grid;
     this->width = square_grid;
+    grid[width*height];
 }
 
 /**
@@ -77,6 +80,7 @@ Grid::Grid(unsigned int square_grid){
 Grid::Grid(unsigned int width, unsigned int height){
     this->width = width;
     this->height = height;
+    grid[width*height];
 }
 
 /**
@@ -102,7 +106,9 @@ Grid::Grid(unsigned int width, unsigned int height){
  * @return
  *      The width of the grid.
  */
-
+unsigned int Grid::get_width() {
+    return width;
+}
 
 /**
  * Grid::get_height()
@@ -127,7 +133,9 @@ Grid::Grid(unsigned int width, unsigned int height){
  * @return
  *      The height of the grid.
  */
-
+unsigned int Grid::get_height() {
+    return height;
+}
 
 /**
  * Grid::get_total_cells()
@@ -152,7 +160,9 @@ Grid::Grid(unsigned int width, unsigned int height){
  * @return
  *      The number of total cells.
  */
-
+unsigned int Grid::get_total_cells() {
+    return total_cells;
+}
 
 /**
  * Grid::get_alive_cells()
