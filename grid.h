@@ -40,4 +40,14 @@ public:
     Grid(unsigned int width, unsigned int height);
 
     ~Grid();
+
+    unsigned int get_width();
+
+    unsigned int get_height();
+
+    unsigned int get_total_cells();
+
+    unsigned int get_alive_cells();
+
+    unsigned int get_dead_cells();
 };
