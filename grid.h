@@ -49,7 +49,7 @@ public:
 
     unsigned int get_alive_cells() const;
 
-    unsigned int get_dead_cells();
+    unsigned int get_dead_cells() const;
 
     void resize(unsigned int square_size);
 
