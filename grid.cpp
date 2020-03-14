@@ -95,17 +95,16 @@ Grid::Grid(unsigned int width, unsigned int height){
     for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
     }
-
 }
 
-Grid::~Grid(){
-    if(grid != nullptr){
-        delete [] grid;
-        grid = nullptr;
-    }
-    width = 0;
-    height = 0;
-}
+//Grid::~Grid(){
+//    if(grid != nullptr){
+//        delete [] grid;
+//        grid = nullptr;
+//    }
+//    width = 0;
+//    height = 0;
+//}
 
 /**
  * Grid::get_width()
@@ -317,9 +316,6 @@ void Grid::resize(unsigned int width, unsigned int height) {
         else{
             grid = new char[width*height];
         }
-    }
-    else{
-        ~Grid();
     }
 }
 
