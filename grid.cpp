@@ -98,6 +98,8 @@ Grid::Grid(unsigned int width, unsigned int height){
 
 }
 
+Grid::~Grid() = default;
+
 /**
  * Grid::get_width()
  *
@@ -272,9 +274,6 @@ void Grid::resize(unsigned int square_size) {
         else{
             grid = new char[square_size];
         }
-    }
-    else{
-        ~Grid();
     }
     width = square_size;
     height = square_size;
@@ -582,7 +581,3 @@ void Grid::resize(unsigned int square_size) {
  * @return
  *      Returns a reference to the output stream to enable operator chaining.
  */
-
-Grid::~Grid() {
-
-}
