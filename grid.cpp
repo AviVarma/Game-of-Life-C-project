@@ -11,6 +11,8 @@
  * @author 957552
  * @date March, 2020
  */
+#include <cstring>
+#include <algorithm>
 #include "grid.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -260,7 +262,23 @@ unsigned int Grid::get_dead_cells() const{
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-
+void Grid::resize(unsigned int square_size) {
+    if(square_size > 0){
+        if(width > 0){
+            char * old_grid = grid;
+            grid = new char[square_size];
+            memcpy(grid, old_grid, std::min(width, square_size)* sizeof(char));
+        }
+        else{
+            grid = new char[square_size];
+        }
+    }
+    else{
+        ~Grid();
+    }
+    width = square_size;
+    height = square_size;
+}
 
 /**
  * Grid::resize(width, height)
