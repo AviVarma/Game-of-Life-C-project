@@ -31,7 +31,7 @@
 Grid::Grid(): width(0), height(0){
     grid = new char[width*height];
 
-    for(int i=0; i<(width*height); i++){
+    for(unsigned int i=0; i<(width*height); i++){
         grid[i] = DEAD;
     }
 }
@@ -64,7 +64,7 @@ Grid::Grid(unsigned int square_grid){
     this->width = square_grid;
     grid = new char[width*height];
 
-    for(int i=0; i<width*height; i++){
+    for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
     }
 }
@@ -90,7 +90,7 @@ Grid::Grid(unsigned int width, unsigned int height){
     this->height = height;
     grid = new char[width*height];
 
-    for(int i=0; i<width*height; i++){
+    for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
     }
 
@@ -202,8 +202,8 @@ unsigned int Grid::get_total_cells() const{
  */
 unsigned int Grid::get_alive_cells() const{
     unsigned int alive_cells = 0;
-    for(int i=0; i<(width*height); i++){
-        if(grid[i] == DEAD){
+    for(unsigned int i=0; i<(width*height); i++){
+        if(grid[i] == ALIVE){
             alive_cells++;
         }
     }
@@ -235,8 +235,8 @@ unsigned int Grid::get_alive_cells() const{
  */
 unsigned int Grid::get_dead_cells() const{
     unsigned int dead_cells = 0;
-    for(int i=0; i<(width*height); i++){
-        if(grid[i] == ALIVE){
+    for(unsigned int i=0; i<(width*height); i++){
+        if(grid[i] == DEAD){
             dead_cells++;
         }
     }
@@ -565,3 +565,6 @@ unsigned int Grid::get_dead_cells() const{
  *      Returns a reference to the output stream to enable operator chaining.
  */
 
+Grid::~Grid() {
+
+}
