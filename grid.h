@@ -32,6 +32,8 @@ private:
     unsigned int width;
     unsigned int height;
     char * grid;
+
+    int get_index(unsigned int x, unsigned int y) const;
 public:
     Grid();
 
@@ -54,8 +56,6 @@ public:
     void resize(unsigned int square_size);
 
     void resize(unsigned int width, unsigned int height);
-
-    int get_index(unsigned int x, unsigned int y) const;
 
     int get(unsigned int x, unsigned int y) const;
 

@@ -349,7 +349,9 @@ void Grid::resize(unsigned int width, unsigned int height) {
  * @return
  *      The 1d offset from the start of the data array where the desired cell is located.
  */
+int Grid::get_index(unsigned int x, unsigned int y) const {
 
+}
 
 /**
  * Grid::get(x, y)
