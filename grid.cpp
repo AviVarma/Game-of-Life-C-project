@@ -98,7 +98,14 @@ Grid::Grid(unsigned int width, unsigned int height){
 
 }
 
-Grid::~Grid() = default;
+Grid::~Grid(){
+    if(grid != nullptr){
+        delete [] grid;
+        grid = nullptr;
+    }
+    width = 0;
+    height = 0;
+}
 
 /**
  * Grid::get_width()
@@ -277,6 +284,7 @@ void Grid::resize(unsigned int square_size) {
     }
     width = square_size;
     height = square_size;
+    // TODO: Add loop that will make the new containers in the array = DEAD.
 }
 
 /**
@@ -299,7 +307,39 @@ void Grid::resize(unsigned int square_size) {
  * @param new_height
  *      The new height for the grid.
  */
+void Grid::resize(unsigned int width, unsigned int height) {
+    if(width*height > 0){
+        if((this->width * this->height) > 0){
+            char * old_grid = grid;
+            grid = new char[width*height];
+            memcpy(grid, old_grid, std::min((this->width*this->height),(width*height))* sizeof(char));
+        }
+        else{
+            grid = new char[width*height];
+        }
+    }
+    else{
+        ~Grid();
+    }
+}
 
+
+/**
+ * void Grid::resize(unsigned int square_size) {
+    if(square_size > 0){
+        if(width > 0){
+            char * old_grid = grid;
+            grid = new char[square_size];
+            memcpy(grid, old_grid, std::min(width, square_size)* sizeof(char));
+        }
+        else{
+            grid = new char[square_size];
+        }
+    }
+    width = square_size;
+    height = square_size;
+}
+*/
 
 /**
  * Grid::get_index(x, y)
