@@ -59,4 +59,5 @@ public:
 
     int get(unsigned int x, unsigned int y) const;
 
+    void set(unsigned int x, unsigned  int y, enum Cell : char value);
 };
