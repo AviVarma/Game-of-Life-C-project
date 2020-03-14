@@ -28,10 +28,10 @@
  *      Grid grid;
  *
  */
-Grid::Grid(): width(0), height(0), total_cells(0){
+Grid::Grid(): width(0), height(0){
     grid = new char[width*height];
 
-    for(int i=0; i<total_cells; i++){
+    for(int i=0; i<(width*height); i++){
         grid[i] = DEAD;
     }
 }
@@ -62,10 +62,9 @@ Grid::Grid(): width(0), height(0), total_cells(0){
 Grid::Grid(unsigned int square_grid){
     this->height = square_grid;
     this->width = square_grid;
-    this->total_cells = height*width;
-    grid = new char[total_cells];
+    grid = new char[width*height];
 
-    for(int i=0; i<total_cells; i++){
+    for(int i=0; i<width*height; i++){
         grid[i] = DEAD;
     }
 }
@@ -89,10 +88,9 @@ Grid::Grid(unsigned int square_grid){
 Grid::Grid(unsigned int width, unsigned int height){
     this->width = width;
     this->height = height;
-    this->total_cells = height*width;
-    grid = new char[total_cells];
+    grid = new char[width*height];
 
-    for(int i=0; i<total_cells; i++){
+    for(int i=0; i<width*height; i++){
         grid[i] = DEAD;
     }
 
@@ -176,7 +174,7 @@ unsigned int Grid::get_height() const{
  *      The number of total cells.
  */
 unsigned int Grid::get_total_cells() const{
-    return total_cells;
+    return width*height;
 }
 
 /**
@@ -202,9 +200,9 @@ unsigned int Grid::get_total_cells() const{
  * @return
  *      The number of alive cells.
  */
-unsigned int Grid::get_alive_cells() {
-    alive_cells = 0;
-    for(int i=0; i<total_cells; i++){
+unsigned int Grid::get_alive_cells() const{
+    unsigned int alive_cells = 0;
+    for(int i=0; i<(width*height); i++){
         if(grid[i] == DEAD){
             alive_cells++;
         }
@@ -235,9 +233,9 @@ unsigned int Grid::get_alive_cells() {
  * @return
  *      The number of dead cells.
  */
-unsigned int Grid::get_dead_cells() {
-    dead_cells = 0;
-    for(int i=0; i<total_cells; i++){
+unsigned int Grid::get_dead_cells() const{
+    unsigned int dead_cells = 0;
+    for(int i=0; i<(width*height); i++){
         if(grid[i] == ALIVE){
             dead_cells++;
         }
