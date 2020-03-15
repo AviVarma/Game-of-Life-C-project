@@ -351,8 +351,8 @@ void Grid::resize(unsigned int width, unsigned int height) {
 */
 int Grid::get_index(unsigned int x, unsigned int y) const {
     int point;
-    for( int j = 0; j< y; j++){
-        for( int i = 0; i< x; i++){
+    for(unsigned int j = 0; j< y; j++){
+        for(unsigned int i = 0; i< x; i++){
             point = grid[j * x + i];
         }
     }
@@ -387,9 +387,9 @@ int Grid::get_index(unsigned int x, unsigned int y) const {
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-int Grid::get(unsigned int x, unsigned int y) const{
-
-}
+//int Grid::get(unsigned int x, unsigned int y) const{
+//
+//}
 
 /**
  * Grid::set(x, y, value)
@@ -421,8 +421,8 @@ int Grid::get(unsigned int x, unsigned int y) const{
 void Grid::set(unsigned int x, unsigned int y, Cell value) {
     int point = 0;
     try{
-        for( int j = 0; j< y; j++){
-            for( int i = 0; i< x; i++){
+        for(unsigned int j = 0; j< y; j++){
+            for(unsigned int i = 0; i< x; i++){
                point = grid[j * x + i];
             }
         }
