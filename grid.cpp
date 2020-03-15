@@ -61,7 +61,7 @@ Grid::Grid(): width(0), height(0){
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-Grid::Grid(unsigned int square_grid){
+Grid::Grid(unsigned int square_grid): width(0), height(0){
     this->height = square_grid;
     this->width = square_grid;
     grid = new char[width*height];
@@ -87,7 +87,7 @@ Grid::Grid(unsigned int square_grid){
  * @param height
  *      The height of the grid.
  */
-Grid::Grid(unsigned int width, unsigned int height){
+Grid::Grid(unsigned int width, unsigned int height): width(0), height(0){
     this->width = width;
     this->height = height;
     grid = new char[width*height];
