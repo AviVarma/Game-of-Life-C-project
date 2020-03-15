@@ -61,5 +61,5 @@ public:
 
     void set(unsigned int x, unsigned int y, Cell value);
 
-    char operator()(unsigned int x, unsigned int y);
+    char& operator()(unsigned int x, unsigned int y);
 };

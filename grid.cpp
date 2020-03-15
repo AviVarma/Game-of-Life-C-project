@@ -468,7 +468,8 @@ void Grid::set(unsigned int x, unsigned int y, Cell value) {
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-char Grid::operator()(unsigned int x, unsigned int y) {
+char& Grid::operator()(unsigned int x, unsigned int y) {
+
     int index = Grid::get_index(x,y);
     return grid[index];
 }
