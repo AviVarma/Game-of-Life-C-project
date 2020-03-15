@@ -410,7 +410,9 @@ int Grid::get_index(unsigned int x, unsigned int y) const {
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
+void Grid::set(unsigned int x, unsigned int y, Cell value) {
 
+}
 
 /**
  * Grid::operator()(x, y)
