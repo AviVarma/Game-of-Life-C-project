@@ -59,5 +59,7 @@ public:
 
     int get(unsigned int x, unsigned int y) const;
 
-    void set(unsigned int x, unsigned  int y, Cell value);
+    void set(unsigned int x, unsigned int y, Cell value);
+
+    char operator()(unsigned int x, unsigned int y);
 };
