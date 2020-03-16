@@ -312,20 +312,20 @@ void Grid::resize(unsigned int square_size) {
  * @param new_height
  *      The new height for the grid.
  */
-void Grid::resize(unsigned int width, unsigned int height) {
-    if(width*height > 0){
-        if((this->width * this->height) > 0){
+void Grid::resize(unsigned int new_width, unsigned int new_height) {
+    if(new_width*new_height > 0){
+        if((width * height) > 0){
             char * old_grid = grid;
-            grid = new char[width*height];
-            memcpy(grid, old_grid, std::min((this->width*this->height),(width*height))* sizeof(char));
+            grid = new char[new_width*new_height];
+            memcpy(grid, old_grid, std::min((width*height),(new_width*new_height))* sizeof(char));
         }
         else{
-            grid = new char[width*height];
+            grid = new char[new_width*new_height];
         }
     }
 
-    this->width = width;
-    this->height = height;
+    width = new_width;
+    height = new_height;
 
     for(unsigned int i=0; i<width*height; i++){
         if(grid[i] == 0){
