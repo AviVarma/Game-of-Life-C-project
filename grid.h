@@ -57,7 +57,7 @@ public:
 
     void resize(unsigned int width, unsigned int height);
 
-    int get(unsigned int x, unsigned int y) const;
+    std::string get(unsigned int x, unsigned int y);
 
     void set(unsigned int x, unsigned int y, Cell value);
 
