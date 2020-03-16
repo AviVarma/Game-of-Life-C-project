@@ -425,6 +425,12 @@ std::string Grid::get(unsigned int x, unsigned int y){
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
 void Grid::set(unsigned int x, unsigned int y, Cell value) {
+    try{
+        Grid::operator()(x,y) = value;
+    }
+    catch(const std::exception &exception){
+        std::cerr << exception.what() << std::endl;
+    }
 }
 
 /**
