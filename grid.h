@@ -57,9 +57,9 @@ public:
 
     void resize(unsigned int width, unsigned int height);
 
-    char& get(unsigned int x, unsigned int y);
+    char get(unsigned int x, unsigned int y);
 
-    void set(unsigned int x, unsigned int y, Cell value);
+    void set(unsigned int x, unsigned int y, char value);
 
     char& operator()(unsigned int x, unsigned int y);
 };
