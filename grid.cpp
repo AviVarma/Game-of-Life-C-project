@@ -351,7 +351,7 @@ void Grid::resize(unsigned int width, unsigned int height) {
  *      The 1d offset from the start of the data array where the desired cell is located.
 */
 int Grid::get_index(unsigned int x, unsigned int y) const {
-    int point;
+    int point = 0;
     for(unsigned int j = 0; j< y; j++){
         for(unsigned int i = 0; i< x; i++){
             point = grid[j * x + i];
@@ -389,12 +389,7 @@ int Grid::get_index(unsigned int x, unsigned int y) const {
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
 std::string Grid::get(unsigned int x, unsigned int y){
-    try{
-        return &Grid::operator()(x,y);
-    }
-    catch(const std::exception &exception){
-        std::cerr << exception.what() << std::endl;
-    }
+    return &Grid::operator()(x,y);
 }
 
 /**
@@ -469,13 +464,7 @@ void Grid::set(unsigned int x, unsigned int y, Cell value) {
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
 char& Grid::operator()(unsigned int x, unsigned int y) {
-    try{
-        return grid[get_index(x,y)];
-    }
-    catch (const std::runtime_error &ex){
-        std::cerr << ex.what() << std::endl;
-    }
-
+    return grid[get_index(x,y)];
 }
 
 /**
