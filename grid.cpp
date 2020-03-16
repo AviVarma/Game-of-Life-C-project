@@ -388,8 +388,10 @@ int Grid::get_index(unsigned int x, unsigned int y) const {
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-std::string Grid::get(unsigned int x, unsigned int y){
-    return &Grid::operator()(x,y);
+
+
+char& Grid::get(unsigned int x, unsigned int y){
+    return Grid::operator()(x,y);
 }
 
 /**
@@ -420,12 +422,7 @@ std::string Grid::get(unsigned int x, unsigned int y){
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
 void Grid::set(unsigned int x, unsigned int y, Cell value) {
-    try{
-        Grid::operator()(x,y) = value;
-    }
-    catch(const std::exception &exception){
-        std::cerr << exception.what() << std::endl;
-    }
+    Grid::operator()(x,y) = value;
 }
 
 /**
@@ -464,7 +461,8 @@ void Grid::set(unsigned int x, unsigned int y, Cell value) {
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
 char& Grid::operator()(unsigned int x, unsigned int y) {
-    return grid[get_index(x,y)];
+    char &cell_reference = grid[get_index(x,y)];
+    return cell_reference;
 }
 
 /**
