@@ -12,6 +12,7 @@
  * @date March, 2020
  */
 #include <cstring>
+#include <iostream>
 #include <algorithm>
 #include "grid.h"
 
@@ -419,18 +420,7 @@ int Grid::get_index(unsigned int x, unsigned int y) const {
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
 void Grid::set(unsigned int x, unsigned int y, Cell value) {
-    int point = 0;
-    try{
-        for(unsigned int j = 0; j< y; j++){
-            for(unsigned int i = 0; i< x; i++){
-               point = grid[j * x + i];
-            }
-        }
-        grid[point] = value;
-    }
-    catch(std::exception e){
 
-    }
 }
 
 /**
@@ -469,9 +459,13 @@ void Grid::set(unsigned int x, unsigned int y, Cell value) {
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
 char& Grid::operator()(unsigned int x, unsigned int y) {
+    try{
+        return grid[get_index(x,y)];
+    }
+    catch (const std::runtime_error &ex){
+        std::cerr << ex.what() << std::endl;
+    }
 
-    int index = Grid::get_index(x,y);
-    return grid[index];
 }
 
 /**
