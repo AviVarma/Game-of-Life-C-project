@@ -287,6 +287,12 @@ void Grid::resize(unsigned int square_size) {
         }
     }
 
+    for(unsigned int b=0; b<square_size; b++){
+        if(new_grid[b] != ALIVE){
+            new_grid[b] = DEAD;
+        }
+    }
+
     // cleanup and assign updated values
     grid = new_grid;
     delete[] new_grid;
