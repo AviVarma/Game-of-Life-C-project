@@ -296,7 +296,7 @@ void Grid::resize(unsigned int square_size) {
 }
 
 /**
- * Grid::resize(width, height)
+ * Grid::resize(width, height)Z
  *
  * Resize the current grid to a new width and height. The content of the grid
  * should be preserved within the kept region and padded with Grid::DEAD if new cells are added.
@@ -318,28 +318,6 @@ void Grid::resize(unsigned int square_size) {
 
 void Grid::resize(unsigned int new_width, unsigned int new_height) {
 
-//    for(unsigned int k = 0; k < width*height; k++){
-//        std::cout << "k:     " << k << grid[k] << std::endl;
-//    }
-
-    Cell * new_grid = new Cell[new_width*new_height];
-    for(unsigned int i=0; i<std::min(new_width*new_height, width*height); i++){
-        new_grid[i] = grid[i];
-    }
-//    for(unsigned int j=0; j<new_width*new_height; j++){
-//        if(new_grid[j] != Cell::ALIVE){
-//            new_grid[j] = Cell::DEAD;
-//        }
-//    }
-    grid = new_grid;
-    delete[] new_grid;
-
-    width = new_width;
-    height = new_height;
-
-//    for(unsigned int k = 0; k < width*height; k++){
-//        std::cout << "k:     " << k << grid[k] << std::endl;
-//    }
 }
 
 /**
