@@ -280,12 +280,19 @@ void Grid::resize(unsigned int square_size) {
             }
         if(square_size>height){
             for(unsigned int a=0; a<square_size; a++){
-                if(new_grid[j] != ALIVE){
-                    new_grid[j] = DEAD;
+                if(new_grid[a] != ALIVE){
+                    new_grid[a] = DEAD;
                 }
             }
         }
     }
+
+    // cleanup and assign updated values
+    grid = new_grid;
+    delete[] new_grid;
+
+    width = square_size;
+    height = square_size;
 }
 
 /**
@@ -314,8 +321,6 @@ void Grid::resize(unsigned int new_width, unsigned int new_height) {
 //    for(unsigned int k = 0; k < width*height; k++){
 //        std::cout << "k:     " << k << grid[k] << std::endl;
 //    }
-
-//// you will need a nested for loop. remember to the diagram from last night.
 
     Cell * new_grid = new Cell[new_width*new_height];
     for(unsigned int i=0; i<std::min(new_width*new_height, width*height); i++){
