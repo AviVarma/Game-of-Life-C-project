@@ -32,7 +32,7 @@
  *
  */
 Grid::Grid(): width(0), height(0){
-    grid = new char[width*height];
+    grid = new Cell[width*height];
 
     for(unsigned int i=0; i<(width*height); i++){
         grid[i] = DEAD;
@@ -65,7 +65,7 @@ Grid::Grid(): width(0), height(0){
 Grid::Grid(unsigned int square_grid): width(0), height(0){
     this->height = square_grid;
     this->width = square_grid;
-    grid = new char[width*height];
+    grid = new Cell[width*height];
 
     for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
@@ -91,7 +91,7 @@ Grid::Grid(unsigned int square_grid): width(0), height(0){
 Grid::Grid(unsigned int width, unsigned int height): width(0), height(0){
     this->width = width;
     this->height = height;
-    grid = new char[width*height];
+    grid = new Cell[width*height];
 
     for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
@@ -272,24 +272,21 @@ unsigned int Grid::get_dead_cells() const{
  *      The new edge size for both the width and height of the grid.
  */
 void Grid::resize(unsigned int square_size) {
-    if(square_size > 0){
-        if(width > 0){
-            char * old_grid = grid;
-            grid = new char[square_size];
-            memcpy(grid, old_grid, std::min(width, square_size)* sizeof(char));
+    Cell * new_grid = new Cell[square_size*square_size];
+        for(unsigned int i=0; i<std::min(width*height, square_size*square_size); i++){
+            new_grid[i] = grid[i];
         }
-        else{
-            grid = new char[square_size];
-        }
-    }
-    width = square_size;
-    height = square_size;
 
-    for(unsigned int i=0; i<square_size; i++){
-        if(grid[i] == 0){
-            grid[i] = DEAD;
+        for(unsigned int j=0; j<square_size*square_size; j++){
+            if(new_grid[j] != ALIVE){
+                new_grid[j] = DEAD;
+            }
         }
-    }
+        grid = new_grid;
+        delete[] new_grid;
+
+        width = square_size;
+        height = square_size;
 }
 
 /**
@@ -312,26 +309,33 @@ void Grid::resize(unsigned int square_size) {
  * @param new_height
  *      The new height for the grid.
  */
+
 void Grid::resize(unsigned int new_width, unsigned int new_height) {
-    if(new_width*new_height > 0){
-        if((width * height) > 0){
-            char * old_grid = grid;
-            grid = new char[new_width*new_height];
-            memcpy(grid, old_grid, std::min((width*height),(new_width*new_height))* sizeof(char));
-        }
-        else{
-            grid = new char[new_width*new_height];
-        }
+
+//    for(unsigned int k = 0; k < width*height; k++){
+//        std::cout << "k:     " << k << grid[k] << std::endl;
+//    }
+
+//// you will need a nested for loop. remember to the diagram from last night.
+
+    Cell * new_grid = new Cell[new_width*new_height];
+    for(unsigned int i=0; i<std::min(new_width*new_height, width*height); i++){
+        new_grid[i] = grid[i];
     }
+//    for(unsigned int j=0; j<new_width*new_height; j++){
+//        if(new_grid[j] != Cell::ALIVE){
+//            new_grid[j] = Cell::DEAD;
+//        }
+//    }
+    grid = new_grid;
+    delete[] new_grid;
 
     width = new_width;
     height = new_height;
 
-    for(unsigned int i=0; i<width*height; i++){
-        if(grid[i] == 0){
-            grid[i] = DEAD;
-        }
-    }
+//    for(unsigned int k = 0; k < width*height; k++){
+//        std::cout << "k:     " << k << grid[k] << std::endl;
+//    }
 }
 
 /**
@@ -350,14 +354,8 @@ void Grid::resize(unsigned int new_width, unsigned int new_height) {
  * @return
  *      The 1d offset from the start of the data array where the desired cell is located.
 */
-int Grid::get_index(unsigned int x, unsigned int y) const {
-    int point = 0;
-    for(unsigned int j = 0; j< y; j++){
-        for(unsigned int i = 0; i< x; i++){
-            point = grid[j * x + i];
-        }
-    }
-    return point;
+unsigned int Grid::get_index(unsigned int x, unsigned int y) const {
+    return (y*width)+x;
 }
 
 /**
@@ -390,7 +388,7 @@ int Grid::get_index(unsigned int x, unsigned int y) const {
  */
 
 
-char& Grid::get(unsigned int x, unsigned int y){
+Cell Grid::get(unsigned int x, unsigned int y) const{
     return Grid::operator()(x,y);
 }
 
@@ -422,7 +420,8 @@ char& Grid::get(unsigned int x, unsigned int y){
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
 void Grid::set(unsigned int x, unsigned int y, Cell value) {
-    Grid::operator()(x,y) = value;
+    Cell &old_value = Grid::operator()(x,y);
+    old_value = value;
 }
 
 /**
@@ -460,9 +459,8 @@ void Grid::set(unsigned int x, unsigned int y, Cell value) {
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-char& Grid::operator()(unsigned int x, unsigned int y) {
-    char &cell_reference = grid[get_index(x,y)];
-    return cell_reference;
+Cell& Grid::operator()(unsigned int x, unsigned int y) const{
+    return grid[get_index(x,y)];
 }
 
 /**
