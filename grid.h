@@ -31,9 +31,9 @@ class Grid {
 private:
     unsigned int width;
     unsigned int height;
-    char * grid;
+    Cell * grid;
 
-    int get_index(unsigned int x, unsigned int y) const;
+    unsigned int get_index(unsigned int x, unsigned int y) const;
 public:
     Grid();
 
@@ -57,9 +57,9 @@ public:
 
     void resize(unsigned int width, unsigned int height);
 
-    char get(unsigned int x, unsigned int y);
+    Cell get(unsigned int x, unsigned int y) const;
 
-    void set(unsigned int x, unsigned int y, char value);
+    void set(unsigned int x, unsigned int y, Cell value);
 
-    char& operator()(unsigned int x, unsigned int y);
+    Cell& operator()(unsigned int x, unsigned int y) const;
 };
