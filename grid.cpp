@@ -273,20 +273,21 @@ unsigned int Grid::get_dead_cells() const{
  */
 void Grid::resize(unsigned int square_size) {
     Cell * new_grid = new Cell[square_size*square_size];
-        for(unsigned int i=0; i<std::min(width*height, square_size*square_size); i++){
-            new_grid[i] = grid[i];
-        }
 
-        for(unsigned int j=0; j<square_size*square_size; j++){
-            if(new_grid[j] != ALIVE){
-                new_grid[j] = DEAD;
-            }
-        }
-        grid = new_grid;
-        delete[] new_grid;
-
-        width = square_size;
-        height = square_size;
+//        for(unsigned int i=0; i<std::min(width*height, square_size*square_size); i++){
+//            new_grid[i] = grid[i];
+//        }
+//
+//        for(unsigned int j=0; j<square_size*square_size; j++){
+//            if(new_grid[j] != ALIVE){
+//                new_grid[j] = DEAD;
+//            }
+//        }
+//        grid = new_grid;
+//        delete[] new_grid;
+//
+//        width = square_size;
+//        height = square_size;
 }
 
 /**
