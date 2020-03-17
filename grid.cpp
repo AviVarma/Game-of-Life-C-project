@@ -279,7 +279,7 @@ void Grid::resize(unsigned int square_size) {
             new_grid[i] = grid[i];
             }
         if(square_size>height){
-            for(unsigned int a=0; a<square_size; a++){
+            for(unsigned int a=height+1; a<square_size; a++){
                 if(new_grid[a] != ALIVE){
                     new_grid[a] = DEAD;
                 }
