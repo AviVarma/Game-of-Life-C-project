@@ -274,22 +274,17 @@ unsigned int Grid::get_dead_cells() const{
 void Grid::resize(unsigned int square_size) {
     Cell * new_grid = new Cell[square_size*square_size];
 
-    for(unsigned int j=0; j<std::min(height, square_size); j++){
-        for(unsigned int i=0; i<std::min(width, square_size); i++){
-            new_grid[i] = grid[i];
-            }
-        if(square_size>height){
-            for(unsigned int a=height+1; a<square_size; a++){
-                if(new_grid[a] != ALIVE){
-                    new_grid[a] = DEAD;
-                }
-            }
-        }
+    // initialize the new array by padding everything to DEAD.
+    for(unsigned int a=0; a<square_size*square_size; a++){
+        new_grid[a] = DEAD;
     }
 
-    for(unsigned int b=0; b<square_size; b++){
-        if(new_grid[b] != ALIVE){
-            new_grid[b] = DEAD;
+    // copy over the old array into the new array.
+    unsigned int i=0;
+    for(unsigned int j=0; j<std::min(height, square_size); j++){
+        while(i<std::min(width, square_size)){
+            new_grid[i] = grid[i];
+            i++;
         }
     }
 
