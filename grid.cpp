@@ -319,6 +319,22 @@ void Grid::resize(unsigned int square_size) {
 
 void Grid::resize(unsigned int new_width, unsigned int new_height) {
 
+    Cell *old_grid = grid;
+    grid = new Cell[new_width * new_height];
+
+    for (unsigned int a = 0; a < new_height * new_width; a++) {
+        grid[a] = DEAD;
+    }
+
+    for(unsigned int j=0; j<std::min(height, new_height); j++){
+        for(unsigned int i=0; i<std::min(width, new_width); i++){
+            grid[(j*new_width)+i] = old_grid[(j*width)+i];
+        }
+    }
+
+    delete[] old_grid;
+    width = new_width;
+    height = new_height;
 }
 
 /**
