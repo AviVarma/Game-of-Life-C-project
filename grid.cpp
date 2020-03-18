@@ -291,7 +291,7 @@ void Grid::resize(unsigned int square_size) {
 }
 
 /**
- * Grid::resize(width, height)Z
+ * Grid::resize(width, height)
  *
  * Resize the current grid to a new width and height. The content of the grid
  * should be preserved within the kept region and padded with Grid::DEAD if new cells are added.
@@ -311,8 +311,7 @@ void Grid::resize(unsigned int square_size) {
  *      The new height for the grid.
  */
 
-void Grid::resize(unsigned int new_width, unsigned int new_height) {
-
+void Grid::resize(unsigned int new_width, unsigned int new_height){
     Cell *old_grid = grid;
     grid = new Cell[new_width * new_height];
 
@@ -524,21 +523,19 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const noexcept(fals
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-Grid Grid::crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1) const{
-    Cell *old_grid = grid;
-    grid = new Cell[(x1-x0)*(y1-y0)];
+Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1) const{
+    Grid new_grid = Grid(x1-x0, y1-y0);
 
-    for(unsigned int j=y0; j<(y1-y0); j++){
-        for(unsigned int i=x0; i<(x1-x0); i++){
-            grid[((j*(x1-x0)))+i] = old_grid[j*(width)+i];
+    for(unsigned int j=0; j<(y1-y0); j++){
+        for(unsigned int i=0; i<(x1-x0); i++){
+            new_grid.grid[(j*(x1-x0))+i] = grid[(j+y0)*(width)+(i+x0)];
         }
     }
 
-    delete[] old_grid;
-    width = x1-x0;
-    height = y1-y0;
+    new_grid.width = x1-x0;
+    new_grid.height = y1-y0;
 
-    return Grid(width, height);
+    return new_grid;
 }
 
 /**
