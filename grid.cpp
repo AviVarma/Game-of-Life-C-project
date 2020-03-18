@@ -524,8 +524,18 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const noexcept(fals
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-Cell& Grid::crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1){
+Grid Grid::crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1){
+    Cell *old_grid = grid;
+    grid = new Cell[(x1-x0)*(y1-y0)];
 
+    for(unsigned int j=y0; j<(y1-y0); j++){
+        for(unsigned int i=x0; i<(x1-x0); i++){
+            grid[((j*(x1-x0)))+i] = old_grid[j*(width)+i];
+        }
+    }
+
+    delete[] old_grid;
+    return {};
 }
 
 /**
