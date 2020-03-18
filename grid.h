@@ -57,11 +57,11 @@ public:
 
     void resize(unsigned int width, unsigned int height);
 
-    Cell get(unsigned int x, unsigned int y) const;
+    Cell get(unsigned int x, unsigned int y) const noexcept(false);
 
-    void set(unsigned int x, unsigned int y, Cell value);
+    void set(unsigned int x, unsigned int y, Cell value) noexcept(false);
 
-    Cell& operator()(unsigned int x, unsigned int y);
+    Cell& operator()(unsigned int x, unsigned int y) noexcept(false);
 
-    const Cell& operator()(unsigned int x, unsigned int y) const;
+    const Cell& operator()(unsigned int x, unsigned int y) const noexcept(false);
 };

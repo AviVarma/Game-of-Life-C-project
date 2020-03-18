@@ -381,7 +381,7 @@ unsigned int Grid::get_index(unsigned int x, unsigned int y) const {
  */
 
 
-Cell Grid::get(unsigned int x, unsigned int y) const{
+Cell Grid::get(unsigned int x, unsigned int y) const noexcept(false){
     return Grid::operator()(x,y);
 }
 
@@ -412,7 +412,7 @@ Cell Grid::get(unsigned int x, unsigned int y) const{
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-void Grid::set(unsigned int x, unsigned int y, Cell value) {
+void Grid::set(unsigned int x, unsigned int y, Cell value) noexcept(false){
     Cell &old_value = Grid::operator()(x,y);
     old_value = value;
 }
@@ -452,7 +452,7 @@ void Grid::set(unsigned int x, unsigned int y, Cell value) {
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-Cell& Grid::operator()(unsigned int x, unsigned int y){
+Cell& Grid::operator()(unsigned int x, unsigned int y) noexcept(false){
     return grid[get_index(x,y)];
 }
 
@@ -486,7 +486,7 @@ Cell& Grid::operator()(unsigned int x, unsigned int y){
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-const Cell& Grid::operator()(unsigned int x, unsigned int y) const{
+const Cell& Grid::operator()(unsigned int x, unsigned int y) const noexcept(false){
     return grid[get_index(x,y)];
 }
 
