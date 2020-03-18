@@ -66,4 +66,6 @@ public:
     const Cell& operator()(unsigned int x, unsigned int y) const noexcept(false);
 
     Grid crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1) const;
+
+    void merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only);
 };
