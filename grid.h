@@ -62,4 +62,6 @@ public:
     void set(unsigned int x, unsigned int y, Cell value);
 
     Cell& operator()(unsigned int x, unsigned int y) const;
+
+    const Cell& operator()(unsigned int x, unsigned int y);
 };

@@ -486,7 +486,9 @@ Cell& Grid::operator()(unsigned int x, unsigned int y) const{
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-
+const Cell &Grid::operator()(unsigned int x, unsigned int y){
+    return grid[get_index(x,y)];
+}
 
 /**
  * Grid::crop(x0, y0, x1, y1)
