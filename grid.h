@@ -64,4 +64,6 @@ public:
     Cell& operator()(unsigned int x, unsigned int y) noexcept(false);
 
     const Cell& operator()(unsigned int x, unsigned int y) const noexcept(false);
+
+    Cell& crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1);
 };

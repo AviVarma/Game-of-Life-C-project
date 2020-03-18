@@ -524,7 +524,9 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const noexcept(fals
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
+Cell& Grid::crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1){
 
+}
 
 /**
  * Grid::merge(other, x0, y0, alive_only = false)
