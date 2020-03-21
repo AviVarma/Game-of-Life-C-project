@@ -574,12 +574,23 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
  *
  * @throws
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
- */
+*/
 void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
-    if(!alive_only){
-
-    }else{
-
+    if(other.width*height > width*height){
+        throw(std::exception());
+    } else {
+        for(unsigned int j=0; j<other.height; j++) {
+            for(unsigned int i=0; i<other.width; i++) {
+                if(!alive_only) {
+                set(i+x0,j+y0, other.grid[(j*(other.width))+i]);
+                }
+                if(alive_only == true){
+                    if(other.grid[((j-y0)*(other.width))+(i-x0)] == Cell::ALIVE) {
+                        set(i+x0,j+y0 ,other.grid[(j*(other.width))+i]);
+                    }
+                }
+            }
+        }
     }
 }
 
