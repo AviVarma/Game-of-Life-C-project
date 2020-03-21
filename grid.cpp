@@ -614,7 +614,14 @@ void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
  * @return
  *      Returns a copy of the grid that has been rotated.
  */
+Grid Grid::rotate(const int rotation) {
+    Grid new_grid = Grid(width, height);
+    new_grid.grid = grid;
 
+
+
+    return new_grid;
+}
 
 /**
  * operator<<(output_stream, grid)
