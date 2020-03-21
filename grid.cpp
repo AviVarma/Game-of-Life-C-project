@@ -11,8 +11,6 @@
  * @author 957552
  * @date March, 2020
  */
-#include <cstring>
-#include <iostream>
 #include <algorithm>
 #include "grid.h"
 
@@ -584,7 +582,7 @@ void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
                 if(!alive_only) {
                 set(i+x0,j+y0, other.grid[(j*(other.width))+i]);
                 }
-                if(alive_only == true){
+                if(alive_only){
                     if(other.grid[((j-y0)*(other.width))+(i-x0)] == Cell::ALIVE) {
                         set(i+x0,j+y0 ,other.grid[(j*(other.width))+i]);
                     }
