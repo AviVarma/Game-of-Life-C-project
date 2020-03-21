@@ -12,6 +12,7 @@
  * @date March, 2020
  */
 #include <algorithm>
+#include <iostream>
 #include "grid.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -616,9 +617,32 @@ void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
  */
 Grid Grid::rotate(const int rotation) {
     Grid new_grid = Grid(width, height);
-    new_grid.grid = grid;
 
+    if(rotation > 0){
+        for(unsigned int j = 0; j<new_grid.height; j++){
+            for(unsigned int i = 0; i<new_grid.width; i++){
+                new_grid.set(j,width-1-i, get(i,j));
+            }
+        }
+        new_grid.width = height;
+        new_grid.height = width;
+    } else if(rotation < 0) {
+        for(unsigned int j = 0; j<new_grid.height; j++){
+            for(unsigned int i = 0; i<new_grid.width; i++){
+                new_grid.set(height-1-j,i, get(i,j));
+            }
+        }
+    } else{
+        new_grid.grid = grid;
+    }
 
+    if(rotation %2 != 0){
+        new_grid.width = height;
+        new_grid.height = width;
+    }
+
+    // if int value is negative: reverse each row.
+    // else reverse each column.
 
     return new_grid;
 }
