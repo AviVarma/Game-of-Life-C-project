@@ -279,8 +279,8 @@ void Grid::resize(unsigned int square_size) {
     }
 
     for(unsigned int j=0; j<std::min(height, square_size); j++){
-        for(unsigned int i=0; i<std::min(width, square_size);){
-            grid[(j*square_size)+1] = old_grid[(j*width)+1];
+        for(unsigned int i=0; i<std::min(width, square_size); i++){
+            grid[(j*square_size)+i] = old_grid[(j*width)+i];
         }
     }
 
