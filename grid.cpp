@@ -618,31 +618,44 @@ void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
 Grid Grid::rotate(int rotation) const{
     Grid new_grid = Grid(width, height);
 
-    if(rotation > 0){
-        for(unsigned int j = 0; j<new_grid.height; j++){
-            for(unsigned int i = 0; i<new_grid.width; i++){
-                new_grid.set(j,width-1-i, get(i,j));
-            }
-        }
-        new_grid.width = height;
-        new_grid.height = width;
-    } else if(rotation < 0) {
-        for(unsigned int j = 0; j<new_grid.height; j++){
-            for(unsigned int i = 0; i<new_grid.width; i++){
-                new_grid.set(height-1-j,i, get(i,j));
-            }
-        }
-    } else{
-        new_grid.grid = grid;
-    }
+    rotation = std::abs(rotation % 4 + 4) % 4;
 
-    if(rotation %2 != 0){
+    // setup new width and height since the dimensions are now changing.
+    if(rotation == 1 || rotation == 3)
+    {
         new_grid.width = height;
         new_grid.height = width;
     }
 
-    // if int value is negative: reverse each row.
-    // else reverse each column.
+
+    switch(rotation){
+        case 0:
+            new_grid.grid = grid;
+            break;
+        case 1: // rotate 90 degrees clockwise
+            for(unsigned int j=0; j<new_grid.height; j++){
+                for(unsigned int i=0; i<new_grid.width; i++){
+                    new_grid.set(i,j, get(j,height-1-i));
+                }
+            }
+            break;
+        case 2: // rotate 180 degrees
+            for(unsigned int j=0; j<new_grid.height; j++){
+                for(unsigned int i=0; i<new_grid.width; i++){
+                    new_grid.set(i,j, get(height - i,height-1-j));
+                }
+            }
+            break;
+        case 3: // rotate 90 degrees anti-clockwise
+            for(unsigned int j=0; j<new_grid.height; j++){
+                for(unsigned int i=0; i<new_grid.width; i++){
+                    new_grid.set(i,j, get(width-1-j,i));
+                }
+            }
+            break;
+        default:
+            break;
+    }
 
     return new_grid;
 }
@@ -682,3 +695,6 @@ Grid Grid::rotate(int rotation) const{
  * @return
  *      Returns a reference to the output stream to enable operator chaining.
  */
+//std::ostream Grid::operator<<(std::iostream output_stream, Grid grid){
+//    return NULL;
+//}

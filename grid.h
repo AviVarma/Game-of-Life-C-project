@@ -70,4 +70,6 @@ public:
     void merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only = false);
 
     Grid rotate(int rotation) const;
+
+    //std::ostream operator<<(std::iostream output_stream, Grid grid);
 };
