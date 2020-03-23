@@ -69,5 +69,5 @@ public:
 
     void merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only = false);
 
-    Grid rotate(const int rotation);
+    Grid rotate(const int rotation) const;
 };
