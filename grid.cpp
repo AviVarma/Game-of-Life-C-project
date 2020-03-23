@@ -627,34 +627,23 @@ Grid Grid::rotate(int rotation) const{
         new_grid.height = width;
     }
 
-
-    switch(rotation){
-        case 0:
-            new_grid.grid = grid;
-            break;
-        case 1: // rotate 90 degrees clockwise
-            for(unsigned int j=0; j<new_grid.height; j++){
-                for(unsigned int i=0; i<new_grid.width; i++){
+    for(unsigned int j=0; j<new_grid.height; j++){
+        for(unsigned int i=0; i<new_grid.width; i++){
+            switch(rotation){
+                case 1: // rotate 90 degrees clockwise
                     new_grid.set(i,j, get(j,height-1-i));
-                }
-            }
-            break;
-        case 2: // rotate 180 degrees
-            for(unsigned int j=0; j<new_grid.height; j++){
-                for(unsigned int i=0; i<new_grid.width; i++){
+                    break;
+                case 2: // rotate 180 degrees
                     new_grid.set(i,j, get(height - i,height-1-j));
-                }
-            }
-            break;
-        case 3: // rotate 90 degrees anti-clockwise
-            for(unsigned int j=0; j<new_grid.height; j++){
-                for(unsigned int i=0; i<new_grid.width; i++){
+                    break;
+                case 3: // rotate 90 degrees anti-clockwise
                     new_grid.set(i,j, get(width-1-j,i));
-                }
+                    break;
+                default:
+                    new_grid.set(i,j, get(i,j));
+                    break;
             }
-            break;
-        default:
-            break;
+        }
     }
 
     return new_grid;
@@ -695,6 +684,6 @@ Grid Grid::rotate(int rotation) const{
  * @return
  *      Returns a reference to the output stream to enable operator chaining.
  */
-//std::ostream Grid::operator<<(std::iostream output_stream, Grid grid){
-//    return NULL;
+//std::ostream& operator<<(std::ostream& output_stream, Grid grid){
+//
 //}
