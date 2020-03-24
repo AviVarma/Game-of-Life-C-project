@@ -23,6 +23,8 @@ class World {
     // How to draw an owl:
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
-
-
+private:
+    unsigned int width;
+    unsigned int height;
+public:
 };
