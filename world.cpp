@@ -37,7 +37,9 @@
  *      World world;
  *
  */
+World::World(): width(0), height(0){
 
+}
 
 /**
  * World::World(square_size)
@@ -58,7 +60,10 @@
  * @param square_size
  *      The edge size to use for the width and height of the world.
  */
-
+World::World(unsigned int square_grid): width(0), height(0){
+    this->width = square_grid;
+    this->height = square_grid;
+}
 
 /**
  * World::World(width, height)
@@ -75,7 +80,10 @@
  * @param height
  *      The height of the world.
  */
-
+World::World(unsigned int width, unsigned int height): width(0), height(0) {
+    this->width = width;
+    this->height = height;
+}
 
 /**
  * World::World(initial_state)
