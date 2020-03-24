@@ -375,7 +375,9 @@ unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroid
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
+void World::step(bool toroidal) {
 
+}
 
 /**
  * World::advance(steps, toroidal)

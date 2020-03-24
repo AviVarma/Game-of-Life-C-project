@@ -41,5 +41,6 @@ public:
     Grid get_state() const;
     void resize(unsigned int square_size);
     void resize(unsigned int width, unsigned int height);
+    void step(bool toroidal);
     ~World();
 };
