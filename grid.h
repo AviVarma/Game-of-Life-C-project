@@ -41,7 +41,7 @@ public:
 
     Grid(unsigned int width, unsigned int height);
 
-    //~Grid();
+    ~Grid();
 
     unsigned int get_width() const;
 

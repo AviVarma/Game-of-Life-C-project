@@ -714,3 +714,10 @@ std::ostream& operator<<(std::ostream& output_stream, Grid grid){
 
     return output_stream;
 }
+
+Grid::~Grid(){
+    this->width = 0;
+    this->height = 0;
+    this->grid = nullptr;
+    delete[] grid;
+}
