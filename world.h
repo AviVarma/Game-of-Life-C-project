@@ -42,5 +42,6 @@ public:
     void resize(unsigned int square_size);
     void resize(unsigned int width, unsigned int height);
     void step(bool toroidal);
+    void advance(unsigned int steps, bool toroidal = false);
     ~World();
 };

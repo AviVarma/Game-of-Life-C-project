@@ -392,6 +392,9 @@ void World::step(bool toroidal) {
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
+void World::advance(unsigned int steps, bool toroidal){
+
+}
 
 World::~World() {
 
