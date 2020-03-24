@@ -38,7 +38,7 @@
  *
  */
 World::World(): width(0), height(0){
-
+    world = new Cell[width*height];
 }
 
 /**
@@ -63,6 +63,11 @@ World::World(): width(0), height(0){
 World::World(unsigned int square_grid): width(0), height(0){
     this->width = square_grid;
     this->height = square_grid;
+    world = new Cell[width*height];
+
+    for(unsigned int i=0; i<width*height; i++){
+        world[i] = DEAD;
+    }
 }
 
 /**
@@ -83,6 +88,11 @@ World::World(unsigned int square_grid): width(0), height(0){
 World::World(unsigned int width, unsigned int height): width(0), height(0) {
     this->width = width;
     this->height = height;
+    world = new Cell[width*height];
+
+    for(unsigned int i=0; i<width*height; i++){
+        world[i] = DEAD;
+    }
 }
 
 /**
@@ -107,6 +117,7 @@ World::World(unsigned int width, unsigned int height): width(0), height(0) {
 World::World(const Grid& initial_state) {
     this->width = initial_state.get_width();
     this->height = initial_state.get_height();
+    world = initial_state.grid;
 }
 
 /**
