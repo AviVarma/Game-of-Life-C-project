@@ -104,17 +104,9 @@ World::World(unsigned int width, unsigned int height){
  * @param initial_state
  *      The state of the constructed world.
  */
-//World::World(const Grid& initial_state) {
-//    this->width = initial_state.get_width();
-//    this->height = initial_state.get_height();
-//    world = new Cell[width*height];
-//
-//    for(unsigned int j = 0; j < height; j++){
-//        for(unsigned int i = 0; i < width; i++){
-//            world[i] = initial_state.get(i,j);
-//        }
-//    }
-//}
+World::World(const Grid& initial_state) {
+    new_grid = initial_state;
+}
 
 /**
  * World::get_width()
@@ -139,9 +131,9 @@ World::World(unsigned int width, unsigned int height){
  * @return
  *      The width of the world.
  */
-//unsigned int World::get_width() const {
-//    return width;
-//}
+unsigned int World::get_width() const {
+    return new_grid.get_width();
+}
 
 /**
  * World::get_height()
@@ -166,9 +158,9 @@ World::World(unsigned int width, unsigned int height){
  * @return
  *      The height of the world.
  */
-//unsigned int World::get_height() const {
-//    return height;
-//}
+unsigned int World::get_height() const {
+    return new_grid.get_height();
+}
 
 /**
  * World::get_total_cells()
@@ -193,9 +185,9 @@ World::World(unsigned int width, unsigned int height){
  * @return
  *      The number of total cells.
  */
-//unsigned int World::get_total_cells() const {
-//    return width*height;
-//}
+unsigned int World::get_total_cells() const {
+    return new_grid.get_total_cells();
+}
 
 /**
  * World::get_alive_cells()
@@ -220,15 +212,9 @@ World::World(unsigned int width, unsigned int height){
  * @return
  *      The number of alive cells.
  */
-//unsigned int World::get_alive_cells() const {
-//    unsigned int alive_cells = 0;
-//    for (unsigned int i = 0; i < (width * height); i++) {
-//        if (world[i] == ALIVE) {
-//            alive_cells++;
-//        }
-//    }
-//    return alive_cells;
-//}
+unsigned int World::get_alive_cells() const {
+    return new_grid.get_alive_cells();
+}
 
 /**
  * World::get_dead_cells()
@@ -253,15 +239,9 @@ World::World(unsigned int width, unsigned int height){
  * @return
  *      The number of dead cells.
  */
-//unsigned int World::get_dead_cells() const {
-//    unsigned int dead_cells = 0;
-//    for (unsigned int i = 0; i < (width * height); i++) {
-//        if (world[i] == DEAD) {
-//                dead_cells++;
-//        }
-//    }
-//    return dead_cells;
-//}
+unsigned int World::get_dead_cells() const {
+    return new_grid.get_dead_cells();
+}
 
 /**
  * World::get_state()
@@ -404,3 +384,7 @@ World::World(unsigned int width, unsigned int height){
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
+
+World::~World() {
+
+}

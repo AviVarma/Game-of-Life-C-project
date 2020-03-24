@@ -29,9 +29,9 @@ private:
     Grid new_grid;
 public:
     World();
-    World(unsigned int square_size);
+    explicit World(unsigned int square_size);
     World(unsigned int width, unsigned int height);
-    //explicit World(const Grid& initial_state);
+    explicit World(const Grid& initial_state);
     unsigned int get_width() const;
     unsigned int get_height() const;
     unsigned int get_total_cells() const;
