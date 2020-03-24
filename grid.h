@@ -37,7 +37,7 @@ private:
 public:
     Grid();
 
-    explicit Grid(unsigned int square_grid);
+    explicit Grid(unsigned int square_size);
 
     Grid(unsigned int width, unsigned int height);
 

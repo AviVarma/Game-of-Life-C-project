@@ -57,9 +57,9 @@ Grid::Grid(): width(0), height(0){
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-Grid::Grid(unsigned int square_grid): width(0), height(0){
-    this->height = square_grid;
-    this->width = square_grid;
+Grid::Grid(unsigned int square_size): width(0), height(0){
+    this->height = square_size;
+    this->width = square_size;
     grid = new Cell[width*height];
 
     for(unsigned int i=0; i<width*height; i++){
