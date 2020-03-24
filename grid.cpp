@@ -367,7 +367,12 @@ unsigned int Grid::get_index(unsigned int x, unsigned int y) const {
  */
 
 
-Cell Grid::get(unsigned int x, unsigned int y) const noexcept(false){
+Cell Grid::get(unsigned int x, unsigned int y) const{
+    if(x > width){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::get(x,y) is out of bounds."));
+    } else if (y > height){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::get(x,y) is out of bounds."));
+    }
     return Grid::operator()(x,y);
 }
 
@@ -398,7 +403,12 @@ Cell Grid::get(unsigned int x, unsigned int y) const noexcept(false){
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-void Grid::set(const unsigned int x, const unsigned int y, const Cell value) noexcept(false){
+void Grid::set(const unsigned int x, const unsigned int y, const Cell value) {
+    if(x > width){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::set(x,y,value) is out of bounds."));
+    } else if (y > height){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::set(x,y.value) is out of bounds."));
+    }
     Cell &old_value = Grid::operator()(x,y);
     old_value = value;
 }
@@ -438,7 +448,12 @@ void Grid::set(const unsigned int x, const unsigned int y, const Cell value) noe
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-Cell& Grid::operator()(unsigned int x, unsigned int y) noexcept(false){
+Cell& Grid::operator()(unsigned int x, unsigned int y) {
+    if(x > width){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
+    } else if (y > height){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
+    }
     return grid[get_index(x,y)];
 }
 
@@ -472,7 +487,12 @@ Cell& Grid::operator()(unsigned int x, unsigned int y) noexcept(false){
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-const Cell& Grid::operator()(unsigned int x, unsigned int y) const noexcept(false){
+const Cell& Grid::operator()(unsigned int x, unsigned int y) const {
+    if(x > width){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
+    } else if (y > height){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
+    }
     return grid[get_index(x,y)];
 }
 
@@ -511,6 +531,15 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const noexcept(fals
  *      or if the crop window has a negative size.
  */
 Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1) const{
+    if(x0 > width){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    } else if (y0 > height){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    } else if (x1 > width){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    } else if (y1 > height){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    }
     Grid new_grid = Grid(x1-x0, y1-y0);
 
     for(unsigned int j=0; j<(y1-y0); j++){
@@ -563,6 +592,10 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
 */
 void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
+    if(other.width > width || other.height > height){
+        throw(std::invalid_argument("The inputted grid does not fit within the bounds of the current grid"));
+    }
+
     if(other.width*height > width*height){
         throw(std::exception());
     } else {

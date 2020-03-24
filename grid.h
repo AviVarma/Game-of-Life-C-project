@@ -57,13 +57,13 @@ public:
 
     void resize(unsigned int width, unsigned int height);
 
-    Cell get(unsigned int x, unsigned int y) const noexcept(false);
+    Cell get(unsigned int x, unsigned int y) const;
 
-    void set(unsigned int x, unsigned int y, Cell value) noexcept(false);
+    void set(unsigned int x, unsigned int y, Cell value);
 
-    Cell& operator()(unsigned int x, unsigned int y) noexcept(false);
+    Cell& operator()(unsigned int x, unsigned int y);
 
-    const Cell& operator()(unsigned int x, unsigned int y) const noexcept(false);
+    const Cell& operator()(unsigned int x, unsigned int y) const;
 
     Grid crop(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1) const;
 
