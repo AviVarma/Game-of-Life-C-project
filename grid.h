@@ -71,5 +71,5 @@ public:
 
     Grid rotate(int rotation) const;
 
-    friend std::ostream operator<<(std::ostream output_stream, Grid grid);
+    friend std::ostream& operator<<(std::ostream& output_stream, Grid grid);
 };
