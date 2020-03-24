@@ -686,25 +686,30 @@ Grid Grid::rotate(int rotation) const{
  */
 std::ostream operator<<(std::ostream output_stream, Grid grid){
 
-//    output_stream << "+-";
-//    for(int i=0; i < grid.get_width(); i++){
-//        output_stream << "-";
-//    }
-//    output_stream << "-+\n";
-//
-//    for(int j=0; j< grid.get_height(); j++){
-//        output_stream << "| ";
-//        for(int i=0; i< grid.get_width(); i++){
-//            output_stream << "#";
-//        }
-//        output_stream << " |\n";
-//    }
-//
-//    output_stream << "+-";
-//    for(int i=0; i < grid.get_width(); i++){
-//        output_stream << "-";
-//    }
-//    output_stream << "-+\n";
+    output_stream << "+-";
+    for(int i=0; i < grid.get_width(); i++){
+        output_stream << "-";
+    }
+    output_stream << "-+\n";
+
+    for(int j=0; j< grid.get_height(); j++){
+        output_stream << "| ";
+        for(int i=0; i< grid.get_width(); i++){
+            if(grid.get(i,j) == Cell::ALIVE){
+                output_stream << "#";
+            }
+            else{
+                output_stream << " ";
+            }
+        }
+        output_stream << " |\n";
+    }
+
+    output_stream << "+-";
+    for(int i=0; i < grid.get_width(); i++){
+        output_stream << "-";
+    }
+    output_stream << "-+\n";
 
     return output_stream;
 }
