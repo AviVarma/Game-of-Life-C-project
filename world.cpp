@@ -21,7 +21,9 @@
  * @author 957552
  * @date March, 2020
  */
+#include <ostream>
 #include "world.h"
+#include "grid.h"
 
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
@@ -117,7 +119,16 @@ World::World(unsigned int width, unsigned int height): width(0), height(0) {
 World::World(const Grid& initial_state) {
     this->width = initial_state.get_width();
     this->height = initial_state.get_height();
-    world = initial_state.grid;
+
+    for(unsigned int i=0; i<width*height; i++){
+        world[i] = DEAD;
+    }
+
+//    for(unsigned int j=0; j < height; j++){
+//        for(unsigned i=0; i < width; i++){
+//            world[i] = initial_state.get(i,j);
+//        }
+//    }
 }
 
 /**
