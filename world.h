@@ -26,9 +26,10 @@ class World {
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
 private:
+    Grid new_grid;
 public:
     World();
-    explicit World(unsigned int square_size);
+    World(unsigned int square_size);
     World(unsigned int width, unsigned int height);
     //explicit World(const Grid& initial_state);
     unsigned int get_width() const;
