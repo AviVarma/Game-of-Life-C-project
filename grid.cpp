@@ -93,15 +93,6 @@ Grid::Grid(unsigned int width, unsigned int height): width(0), height(0){
     }
 }
 
-//Grid::~Grid(){
-//    if(grid != nullptr){
-//        delete [] grid;
-//        grid = nullptr;
-//    }
-//    width = 0;
-//    height = 0;
-//}
-
 /**
  * Grid::get_width()
  *
