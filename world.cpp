@@ -351,7 +351,9 @@ void World::resize(unsigned int width, unsigned int height){
  * @return
  *      Returns the number of alive neighbours.
  */
-
+unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroidal){
+    return 0;
+}
 
 /**
  * World::step(toroidal)
