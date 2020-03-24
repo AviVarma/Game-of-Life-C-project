@@ -132,7 +132,9 @@ World::World(const Grid& initial_state) {
  * @return
  *      The width of the world.
  */
-
+unsigned int World::get_width() const {
+    return width;
+}
 
 /**
  * World::get_height()
@@ -157,7 +159,9 @@ World::World(const Grid& initial_state) {
  * @return
  *      The height of the world.
  */
-
+unsigned int World::get_height() const {
+    return height;
+}
 
 /**
  * World::get_total_cells()
@@ -182,7 +186,9 @@ World::World(const Grid& initial_state) {
  * @return
  *      The number of total cells.
  */
-
+unsigned int World::get_total_cells() const {
+    return width*height;
+}
 
 /**
  * World::get_alive_cells()
