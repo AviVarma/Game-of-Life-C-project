@@ -370,3 +370,8 @@ World::World(unsigned int width, unsigned int height): width(0), height(0) {
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
+
+World::~World() {
+    this->height = 0;
+    this->width = 0;
+}

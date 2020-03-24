@@ -30,4 +30,6 @@ public:
     World();
     explicit World(unsigned int square_size);
     World(unsigned int width, unsigned int height);
+
+    ~World();
 };
