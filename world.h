@@ -37,5 +37,7 @@ public:
     unsigned int get_width() const;
     unsigned int get_height() const;
     unsigned int get_total_cells() const;
+    unsigned int get_alive_cells() const;
+    unsigned int get_dead_cells() const;
     ~World();
 };

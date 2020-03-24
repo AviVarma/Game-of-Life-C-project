@@ -224,7 +224,15 @@ unsigned int World::get_total_cells() const {
  * @return
  *      The number of alive cells.
  */
-
+unsigned int World::get_alive_cells() const {
+    unsigned int alive_cells = 0;
+    for (unsigned int i = 0; i < (width * height); i++) {
+        if (world[i] == ALIVE) {
+            alive_cells++;
+        }
+    }
+    return alive_cells;
+}
 
 /**
  * World::get_dead_cells()
@@ -249,7 +257,15 @@ unsigned int World::get_total_cells() const {
  * @return
  *      The number of dead cells.
  */
-
+unsigned int World::get_dead_cells() const {
+    unsigned int dead_cells = 0;
+    for (unsigned int i = 0; i < (width * height); i++) {
+        if (world[i] == DEAD) {
+                dead_cells++;
+        }
+    }
+    return dead_cells;
+}
 
 /**
  * World::get_state()
