@@ -37,6 +37,8 @@ public:
     unsigned int get_total_cells() const;
     unsigned int get_alive_cells() const;
     unsigned int get_dead_cells() const;
-    //std::ostream& get_state() const;
+    Grid get_state() const;
+    void resize(unsigned int square_size);
+    void resize(unsigned int width, unsigned int height);
     ~World();
 };
