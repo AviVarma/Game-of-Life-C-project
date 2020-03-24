@@ -39,8 +39,8 @@
  *      World world;
  *
  */
-World::World(): width(0), height(0){
-    world = new Cell[width*height];
+World::World(){
+    Grid();
 }
 
 /**
@@ -62,14 +62,8 @@ World::World(): width(0), height(0){
  * @param square_size
  *      The edge size to use for the width and height of the world.
  */
-World::World(unsigned int square_grid): width(0), height(0){
-    this->width = square_grid;
-    this->height = square_grid;
-    world = new Cell[width*height];
+World::World(unsigned int square_size){
 
-    for(unsigned int i=0; i<width*height; i++){
-        world[i] = DEAD;
-    }
 }
 
 /**
@@ -87,14 +81,8 @@ World::World(unsigned int square_grid): width(0), height(0){
  * @param height
  *      The height of the world.
  */
-World::World(unsigned int width, unsigned int height): width(0), height(0) {
-    this->width = width;
-    this->height = height;
-    world = new Cell[width*height];
-
-    for(unsigned int i=0; i<width*height; i++){
-        world[i] = DEAD;
-    }
+World::World(unsigned int width, unsigned int height){
+    Grid(width, height);
 }
 
 /**
@@ -116,20 +104,17 @@ World::World(unsigned int width, unsigned int height): width(0), height(0) {
  * @param initial_state
  *      The state of the constructed world.
  */
-World::World(const Grid& initial_state) {
-    this->width = initial_state.get_width();
-    this->height = initial_state.get_height();
-
-    for(unsigned int i=0; i<width*height; i++){
-        world[i] = DEAD;
-    }
-
-//    for(unsigned int j=0; j < height; j++){
-//        for(unsigned i=0; i < width; i++){
+//World::World(const Grid& initial_state) {
+//    this->width = initial_state.get_width();
+//    this->height = initial_state.get_height();
+//    world = new Cell[width*height];
+//
+//    for(unsigned int j = 0; j < height; j++){
+//        for(unsigned int i = 0; i < width; i++){
 //            world[i] = initial_state.get(i,j);
 //        }
 //    }
-}
+//}
 
 /**
  * World::get_width()
@@ -302,9 +287,9 @@ unsigned int World::get_dead_cells() const {
  * @return
  *      A reference to the current state.
  */
-std::ostream& World::get_state() const{
-
-}
+//std::ostream& World::get_state() const{
+//
+//}
 
 /**
  * World::resize(square_size)

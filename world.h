@@ -26,19 +26,16 @@ class World {
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
 private:
-    unsigned int width;
-    unsigned int height;
-    Cell * world;
 public:
     World();
     explicit World(unsigned int square_size);
     World(unsigned int width, unsigned int height);
-    explicit World(const Grid& initial_state);
+    //explicit World(const Grid& initial_state);
     unsigned int get_width() const;
     unsigned int get_height() const;
     unsigned int get_total_cells() const;
     unsigned int get_alive_cells() const;
     unsigned int get_dead_cells() const;
-    std::ostream& get_state() const;
+    //std::ostream& get_state() const;
     ~World();
 };
