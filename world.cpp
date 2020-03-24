@@ -104,7 +104,10 @@ World::World(unsigned int width, unsigned int height): width(0), height(0) {
  * @param initial_state
  *      The state of the constructed world.
  */
-
+World::World(const Grid& initial_state) {
+    this->width = initial_state.get_width();
+    this->height = initial_state.get_height();
+}
 
 /**
  * World::get_width()

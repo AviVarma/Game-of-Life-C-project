@@ -13,6 +13,8 @@
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
 
+#include "grid.h"
+
 /**
  * Declare the structure of the World class for representing a 2d grid world.
  *
@@ -30,6 +32,6 @@ public:
     World();
     explicit World(unsigned int square_size);
     World(unsigned int width, unsigned int height);
-
+    explicit World(const Grid& initial_state);
     ~World();
 };
