@@ -28,6 +28,7 @@ class World {
 private:
     unsigned int width;
     unsigned int height;
+    Cell * world;
 public:
     World();
     explicit World(unsigned int square_size);
