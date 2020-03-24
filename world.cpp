@@ -302,7 +302,9 @@ unsigned int World::get_dead_cells() const {
  * @return
  *      A reference to the current state.
  */
+std::ostream& World::get_state() const{
 
+}
 
 /**
  * World::resize(square_size)

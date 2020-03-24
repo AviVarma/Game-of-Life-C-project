@@ -39,5 +39,6 @@ public:
     unsigned int get_total_cells() const;
     unsigned int get_alive_cells() const;
     unsigned int get_dead_cells() const;
+    std::ostream& get_state() const;
     ~World();
 };
