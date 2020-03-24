@@ -32,10 +32,6 @@
  */
 Grid::Grid(): width(0), height(0){
     grid = new Cell[width*height];
-
-    for(unsigned int i=0; i<(width*height); i++){
-        grid[i] = DEAD;
-    }
 }
 
 /**
