@@ -26,7 +26,7 @@ class World {
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
 private:
-    Grid new_grid;
+    Grid current_state;
     unsigned int count_neighbours(unsigned int x, unsigned int y, bool toroidal);
 public:
     World();

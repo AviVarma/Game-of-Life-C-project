@@ -40,7 +40,7 @@
  *
  */
 World::World(){
-   new_grid = Grid();
+    current_state = Grid();
 }
 
 /**
@@ -63,7 +63,7 @@ World::World(){
  *      The edge size to use for the width and height of the world.
  */
 World::World(unsigned int square_size){
-   new_grid = Grid(square_size);
+    current_state = Grid(square_size);
 }
 
 /**
@@ -82,7 +82,7 @@ World::World(unsigned int square_size){
  *      The height of the world.
  */
 World::World(unsigned int width, unsigned int height){
-    new_grid = Grid(width, height);
+    current_state = Grid(width, height);
 }
 
 /**
@@ -105,7 +105,7 @@ World::World(unsigned int width, unsigned int height){
  *      The state of the constructed world.
  */
 World::World(const Grid& initial_state) {
-    new_grid = initial_state;
+    current_state = initial_state;
 }
 
 /**
@@ -132,7 +132,7 @@ World::World(const Grid& initial_state) {
  *      The width of the world.
  */
 unsigned int World::get_width() const {
-    return new_grid.get_width();
+    return current_state.get_width();
 }
 
 /**
@@ -159,7 +159,7 @@ unsigned int World::get_width() const {
  *      The height of the world.
  */
 unsigned int World::get_height() const {
-    return new_grid.get_height();
+    return current_state.get_height();
 }
 
 /**
@@ -186,7 +186,7 @@ unsigned int World::get_height() const {
  *      The number of total cells.
  */
 unsigned int World::get_total_cells() const {
-    return new_grid.get_total_cells();
+    return current_state.get_total_cells();
 }
 
 /**
@@ -213,7 +213,7 @@ unsigned int World::get_total_cells() const {
  *      The number of alive cells.
  */
 unsigned int World::get_alive_cells() const {
-    return new_grid.get_alive_cells();
+    return current_state.get_alive_cells();
 }
 
 /**
@@ -240,7 +240,7 @@ unsigned int World::get_alive_cells() const {
  *      The number of dead cells.
  */
 unsigned int World::get_dead_cells() const {
-    return new_grid.get_dead_cells();
+    return current_state.get_dead_cells();
 }
 
 /**
@@ -268,7 +268,7 @@ unsigned int World::get_dead_cells() const {
  *      A reference to the current state.
  */
 Grid World::get_state() const{
-    return new_grid;
+    return current_state;
 }
 
 /**
@@ -291,7 +291,7 @@ Grid World::get_state() const{
  *      The new edge size for both the width and height of the grid.
  */
 void World::resize(unsigned int square_size) {
-    new_grid.resize(square_size);
+    current_state.resize(square_size);
 }
 
 /**
@@ -317,7 +317,7 @@ void World::resize(unsigned int square_size) {
  *      The new height for the grid.
  */
 void World::resize(unsigned int width, unsigned int height){
-    new_grid.resize(width, height);
+    current_state.resize(width, height);
 }
 
 /**
@@ -352,7 +352,30 @@ void World::resize(unsigned int width, unsigned int height){
  *      Returns the number of alive neighbours.
  */
 unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroidal){
-    return 0;
+    int alive_neighbours  = 0;
+
+    if(toroidal){
+
+    } else{
+        if(y+1 <= current_state.get_height() && x-1 >= 0 && current_state.get(x-1,y+1) == ALIVE)
+            alive_neighbours++;
+        if(y+1 <= current_state.get_height() && current_state.get(x,y+1) == ALIVE)
+            alive_neighbours++;
+        if(y+1 <= current_state.get_height() && x+1 <= current_state.get_width() && current_state.get(x+1,y+1) == ALIVE)
+            alive_neighbours++;
+        if(x-1 >= 0 && current_state.get(x-1,y) == ALIVE)
+            alive_neighbours++;
+        if(x+1 <= current_state.get_width() && current_state.get(x+1,y) == ALIVE)
+            alive_neighbours++;
+        if(y-1 >=0 && x-1 >=0 && current_state.get(x-1,y-1) == ALIVE)
+            alive_neighbours++;
+        if(y-1 >=0 && current_state.get(x,y-1) == ALIVE)
+            alive_neighbours++;
+        if(y-1 >=0 && x+1 <= current_state.get_width() && current_state.get(x+1,y-1) == ALIVE)
+            alive_neighbours++;
+    }
+
+    return alive_neighbours;
 }
 
 /**
