@@ -21,7 +21,7 @@
  * @author 957552
  * @date March, 2020
  */
-#include <ostream>
+#include <sstream>
 #include <iostream>
 #include "world.h"
 #include "grid.h"
@@ -446,7 +446,10 @@ void World::step(bool toroidal) {
             }
         }
     }
-    //std::cout << " " << std::endl;
+    std::stringstream stream;
+    stream << next_state;
+    const std::string observed = stream.str();
+    std::cout << observed << std::endl;
 
     std::swap(next_state, current_state);
 }
