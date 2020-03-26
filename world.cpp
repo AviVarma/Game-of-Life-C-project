@@ -407,7 +407,15 @@ unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroid
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
 void World::step(bool toroidal) {
+    for(unsigned int j = 0; j < current_state.get_height(); j++){
+        for(unsigned int i = 0; i < current_state.get_width(); i++){
+            unsigned int num_neighbours = count_neighbours(i,j, toroidal);
+            // implement the rules here
+            if(num_neighbours == 2 || num_neighbours == 3){
 
+            }
+        }
+    }
 }
 
 /**
