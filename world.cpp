@@ -373,14 +373,32 @@ int World::count_neighbours(int x, int y, bool toroidal){
 //    std::cout << "i+x+width | : " << (i+x+width) << std::endl;
 //    std::cout << "x_val | : " << x_val << std::endl;
 
-    if(toroidal){
-        for(int j = -1; j<=1; j++){
-            for(int i = -1; i<=1; i++){
-                if(current_state.get( (i+x+width) % width ,(j+y+height) % height) == ALIVE){
-                    alive_neighbours++;
-                }
-            }
+    if(toroidal == true){
+        if(current_state.get((x-1+width)%width,(y+1+height)%height) == ALIVE){
+            alive_neighbours++;
         }
+        if(current_state.get((x+width)%width,(y+1+height)%height) == ALIVE){
+            alive_neighbours++;
+        }
+        if(current_state.get((x+1+width)%width,(y+1+height)%height) == ALIVE){
+            alive_neighbours++;
+        }
+        if(current_state.get((x-1+width)%width,(y+height)%height) == ALIVE){
+            alive_neighbours++;
+        }
+        if(current_state.get((x+1+width)%width,(y+height)%height) == ALIVE){
+            alive_neighbours++;
+        }
+        if(current_state.get((x-1+width)%width,(y-1+height)%height) == ALIVE){
+            alive_neighbours++;
+        }
+        if(current_state.get((x+width)%width,(y-1+height)%height) == ALIVE){
+            alive_neighbours++;
+        }
+        if(current_state.get((x+1+width)%width,(y-1+height)%height) == ALIVE) {
+            alive_neighbours++;
+        }
+
     } else{
         if(y+1 <= height && x-1 >= 0 && current_state.get(x-1,y+1) == ALIVE){
             alive_neighbours++;
@@ -431,7 +449,7 @@ int World::count_neighbours(int x, int y, bool toroidal){
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
 void World::step(bool toroidal) {
-    //std::cout << current_state.get(0,0) << std::endl;
+
     for(int j = 0; j < height; j++){
         for(int i = 0; i < width; i++){
             int num_neighbours = count_neighbours(i,j, toroidal);
@@ -446,11 +464,7 @@ void World::step(bool toroidal) {
             }
         }
     }
-    std::stringstream stream;
-    stream << next_state;
-    const std::string observed = stream.str();
-    std::cout << observed << std::endl;
-
+//    std::cout << " " <<std::endl;
     std::swap(next_state, current_state);
 }
 
@@ -469,10 +483,15 @@ void World::step(bool toroidal) {
  */
 void World::advance(unsigned int steps, bool toroidal){
     for(unsigned int i = 0; i<steps; i++){
+//        std::stringstream stream;
+//        stream << current_state;
+//        const std::string observed = stream.str();
+//        std::cout << "[" << i << "]\n" << observed << std::endl;
         step(toroidal);
     }
 }
 
-//World::~World() {
-//
-//}
+World::~World() {
+    this->height = 0;
+    this->width = 0;
+}
