@@ -22,6 +22,7 @@
  * @date March, 2020
  */
 #include <ostream>
+#include <iostream>
 #include "world.h"
 #include "grid.h"
 
@@ -355,7 +356,15 @@ unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroid
     int alive_neighbours  = 0;
 
     if(toroidal){
-
+        std::cout << "not implemented yet" << std::endl;
+        for(int j = -1; j<=1; j++){
+            for(int i = -1; i<=1; i++){
+                if(current_state.get( x+i+current_state.get_width()%current_state.get_width() ,
+                        y+j+current_state.get_height()%current_state.get_height()) == ALIVE){
+                    alive_neighbours++;
+                }
+            }
+        }
     } else{
         if(y+1 <= current_state.get_height() && x-1 >= 0 && current_state.get(x-1,y+1) == ALIVE)
             alive_neighbours++;
@@ -374,7 +383,6 @@ unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroid
         if(y-1 >=0 && x+1 <= current_state.get_width() && current_state.get(x+1,y-1) == ALIVE)
             alive_neighbours++;
     }
-
     return alive_neighbours;
 }
 

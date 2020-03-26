@@ -27,6 +27,7 @@ class World {
     //      Step 2. Draw the rest of the owl.
 private:
     Grid current_state;
+    Grid next_state;
     unsigned int count_neighbours(unsigned int x, unsigned int y, bool toroidal);
 public:
     World();
