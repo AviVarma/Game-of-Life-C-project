@@ -28,7 +28,9 @@ class World {
 private:
     Grid current_state;
     Grid next_state;
-    unsigned int count_neighbours(unsigned int x, unsigned int y, bool toroidal);
+    unsigned int width;
+    unsigned int height;
+    int count_neighbours(int x, int y, bool toroidal);
 public:
     World();
     explicit World(unsigned int square_size);
@@ -41,8 +43,8 @@ public:
     unsigned int get_dead_cells() const;
     Grid get_state() const;
     void resize(unsigned int square_size);
-    void resize(unsigned int width, unsigned int height);
-    void step(bool toroidal);
+    void resize(unsigned int new_width, unsigned int new_height);
+    void step(bool toroidal = false);
     void advance(unsigned int steps, bool toroidal = false);
     //~World();
 };

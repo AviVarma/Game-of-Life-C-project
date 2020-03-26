@@ -40,7 +40,7 @@
  *      World world;
  *
  */
-World::World(){
+World::World(): width(0), height(0){
     current_state = Grid();
     next_state = Grid();
 }
@@ -64,7 +64,10 @@ World::World(){
  * @param square_size
  *      The edge size to use for the width and height of the world.
  */
-World::World(unsigned int square_size){
+World::World(unsigned int square_size): width(0), height(0){
+    this->width = square_size;
+    this->height = square_size;
+
     current_state = Grid(square_size);
     next_state = Grid(square_size);
 }
@@ -84,7 +87,10 @@ World::World(unsigned int square_size){
  * @param height
  *      The height of the world.
  */
-World::World(unsigned int width, unsigned int height){
+World::World(unsigned int width, unsigned int height): width(0), height(0){
+    this->width = width;
+    this->height = height;
+
     current_state = Grid(width, height);
     next_state = Grid(width, height);
 }
@@ -108,8 +114,12 @@ World::World(unsigned int width, unsigned int height){
  * @param initial_state
  *      The state of the constructed world.
  */
-World::World(const Grid& initial_state) {
+World::World(const Grid& initial_state): width(0), height(0){
+    this->width = initial_state.get_width();
+    this->height = initial_state.get_height();
+
     current_state = initial_state;
+    next_state = Grid(width, height);
 }
 
 /**
@@ -320,8 +330,8 @@ void World::resize(unsigned int square_size) {
  * @param new_height
  *      The new height for the grid.
  */
-void World::resize(unsigned int width, unsigned int height){
-    current_state.resize(width, height);
+void World::resize(unsigned int new_width, unsigned int new_height){
+    current_state.resize(new_width, new_height);
 }
 
 /**
@@ -355,36 +365,47 @@ void World::resize(unsigned int width, unsigned int height){
  * @return
  *      Returns the number of alive neighbours.
  */
-unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroidal){
+int World::count_neighbours(int x, int y, bool toroidal){
     int alive_neighbours  = 0;
+//    std::cout << "width of current grid: " << current_state.get_width() << std::endl;
+//    std::cout << "i | : " << i << std::endl;
+//    std::cout << "x | : " << x << std::endl;
+//    std::cout << "i+x+width | : " << (i+x+width) << std::endl;
+//    std::cout << "x_val | : " << x_val << std::endl;
 
     if(toroidal){
-        std::cout << "not implemented yet" << std::endl;
         for(int j = -1; j<=1; j++){
             for(int i = -1; i<=1; i++){
-                if(current_state.get( x+i+current_state.get_width()%current_state.get_width() ,
-                        y+j+current_state.get_height()%current_state.get_height()) == ALIVE){
+                if(current_state.get( (i+x+width) % width ,(j+y+height) % height) == ALIVE){
                     alive_neighbours++;
                 }
             }
         }
     } else{
-        if(y+1 <= current_state.get_height() && x-1 >= 0 && current_state.get(x-1,y+1) == ALIVE)
+        if(y+1 <= height && x-1 >= 0 && current_state.get(x-1,y+1) == ALIVE){
             alive_neighbours++;
-        if(y+1 <= current_state.get_height() && current_state.get(x,y+1) == ALIVE)
+        }
+        if(y+1 <= height && current_state.get(x,y+1) == ALIVE){
             alive_neighbours++;
-        if(y+1 <= current_state.get_height() && x+1 <= current_state.get_width() && current_state.get(x+1,y+1) == ALIVE)
+        }
+        if(y+1 <= height && x+1 <= width && current_state.get(x+1,y+1) == ALIVE){
             alive_neighbours++;
-        if(x-1 >= 0 && current_state.get(x-1,y) == ALIVE)
+        }
+        if(x-1 >= 0 && current_state.get(x-1,y) == ALIVE){
             alive_neighbours++;
-        if(x+1 <= current_state.get_width() && current_state.get(x+1,y) == ALIVE)
+        }
+        if(x+1 <= width && current_state.get(x+1,y) == ALIVE){
             alive_neighbours++;
-        if(y-1 >=0 && x-1 >=0 && current_state.get(x-1,y-1) == ALIVE)
+        }
+        if(y-1 >=0 && x-1 >=0 && current_state.get(x-1,y-1) == ALIVE){
             alive_neighbours++;
-        if(y-1 >=0 && current_state.get(x,y-1) == ALIVE)
+        }
+        if(y-1 >=0 && current_state.get(x,y-1) == ALIVE){
             alive_neighbours++;
-        if(y-1 >=0 && x+1 <= current_state.get_width() && current_state.get(x+1,y-1) == ALIVE)
+        }
+        if(y-1 >=0 && x+1 <= width && current_state.get(x+1,y-1) == ALIVE){
             alive_neighbours++;
+        }
     }
     return alive_neighbours;
 }
@@ -410,13 +431,14 @@ unsigned int World::count_neighbours(unsigned int x, unsigned int y, bool toroid
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
 void World::step(bool toroidal) {
-    for(unsigned int j = 0; j < current_state.get_height(); j++){
-        for(unsigned int i = 0; i < current_state.get_width(); i++){
-            unsigned int num_neighbours = count_neighbours(i,j, toroidal);
+    //std::cout << current_state.get(0,0) << std::endl;
+    for(int j = 0; j < (int) height; j++){
+        for(int i = 0; i < (int) width; i++){
+            int num_neighbours = count_neighbours(i,j, toroidal);
             // implement the rules here
-            if(1 < num_neighbours && num_neighbours < 4 && current_state.get(i,j) == ALIVE){
+            if((num_neighbours == 2 || num_neighbours ==3) && current_state.get(0,0) == ALIVE){
                 next_state.set(i,j,ALIVE);
-            }else if(num_neighbours == 3 && current_state.get(i,j) == DEAD){
+            } else if(num_neighbours == 3 && current_state.get(0,0) == DEAD){
                 next_state.set(i,j,ALIVE);
             } else{
                 next_state.set(i,j,DEAD);
@@ -424,7 +446,7 @@ void World::step(bool toroidal) {
         }
     }
 
-    std::swap(current_state, next_state);
+    std::swap(next_state, current_state);
 }
 
 /**
@@ -440,9 +462,11 @@ void World::step(bool toroidal) {
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-//void World::advance(unsigned int steps, bool toroidal){
-//
-//}
+void World::advance(unsigned int steps, bool toroidal){
+//    for(unsigned int i = 0; i<steps; i++){
+//        step(toroidal);
+//    }
+}
 
 //World::~World() {
 //
