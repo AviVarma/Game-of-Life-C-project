@@ -576,7 +576,7 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
  * @throws
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
 */
-void Grid::merge(Grid other, unsigned int x0, unsigned int y0, bool alive_only){
+void Grid::merge(const Grid& other, unsigned int x0, unsigned int y0, bool alive_only){
     if(other.width > width || other.height > height){
         throw(std::invalid_argument("The inputted grid does not fit within the bounds of the current grid"));
     }
