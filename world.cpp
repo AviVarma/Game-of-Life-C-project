@@ -65,8 +65,8 @@ World::World(): width(0), height(0){
  *      The edge size to use for the width and height of the world.
  */
 World::World(unsigned int square_size): width(0), height(0){
-    this->width = square_size;
-    this->height = square_size;
+    this->width = (int) square_size;
+    this->height = (int) square_size;
 
     current_state = Grid(square_size);
     next_state = Grid(square_size);
@@ -88,8 +88,8 @@ World::World(unsigned int square_size): width(0), height(0){
  *      The height of the world.
  */
 World::World(unsigned int width, unsigned int height): width(0), height(0){
-    this->width = width;
-    this->height = height;
+    this->width = (int) width;
+    this->height = (int) height;
 
     current_state = Grid(width, height);
     next_state = Grid(width, height);
@@ -115,8 +115,8 @@ World::World(unsigned int width, unsigned int height): width(0), height(0){
  *      The state of the constructed world.
  */
 World::World(const Grid& initial_state): width(0), height(0){
-    this->width = initial_state.get_width();
-    this->height = initial_state.get_height();
+    this->width = (int) initial_state.get_width();
+    this->height = (int) initial_state.get_height();
 
     current_state = initial_state;
     next_state = Grid(width, height);
