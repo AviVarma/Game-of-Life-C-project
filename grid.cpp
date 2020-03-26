@@ -258,22 +258,7 @@ unsigned int Grid::get_dead_cells() const{
  *      The new edge size for both the width and height of the grid.
  */
 void Grid::resize(unsigned int square_size) {
-    Cell *old_grid = grid;
-    grid = new Cell[square_size*square_size];
-
-    for(unsigned int a = 0; a < square_size*square_size; a++){
-        grid[a] = DEAD;
-    }
-
-    for(unsigned int j=0; j<std::min(height, square_size); j++){
-        for(unsigned int i=0; i<std::min(width, square_size); i++){
-            grid[(j*square_size)+i] = old_grid[(j*width)+i];
-        }
-    }
-
-    delete[] old_grid;
-    width = square_size;
-    height = square_size;
+    resize(square_size,square_size);
 }
 
 /**
