@@ -432,19 +432,21 @@ int World::count_neighbours(int x, int y, bool toroidal){
  */
 void World::step(bool toroidal) {
     //std::cout << current_state.get(0,0) << std::endl;
-    for(int j = 0; j < (int) height; j++){
-        for(int i = 0; i < (int) width; i++){
+    for(int j = 0; j < height; j++){
+        for(int i = 0; i < width; i++){
             int num_neighbours = count_neighbours(i,j, toroidal);
+            //std::cout << "i,j | " << i << " " << j << " | neighbours | "<< num_neighbours << std::endl;
             // implement the rules here
-            if((num_neighbours == 2 || num_neighbours ==3) && current_state.get(0,0) == ALIVE){
+            if((num_neighbours == 2 && current_state.get(i,j) == ALIVE) || (num_neighbours ==3 && current_state.get(i,j) == ALIVE)){
                 next_state.set(i,j,ALIVE);
-            } else if(num_neighbours == 3 && current_state.get(0,0) == DEAD){
+            } else if(num_neighbours == 3 && current_state.get(i,j) == DEAD){
                 next_state.set(i,j,ALIVE);
             } else{
                 next_state.set(i,j,DEAD);
             }
         }
     }
+    //std::cout << " " << std::endl;
 
     std::swap(next_state, current_state);
 }
@@ -463,9 +465,9 @@ void World::step(bool toroidal) {
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
 void World::advance(unsigned int steps, bool toroidal){
-//    for(unsigned int i = 0; i<steps; i++){
-//        step(toroidal);
-//    }
+    for(unsigned int i = 0; i<steps; i++){
+        step(toroidal);
+    }
 }
 
 //World::~World() {
