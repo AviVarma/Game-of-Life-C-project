@@ -414,11 +414,17 @@ void World::step(bool toroidal) {
         for(unsigned int i = 0; i < current_state.get_width(); i++){
             unsigned int num_neighbours = count_neighbours(i,j, toroidal);
             // implement the rules here
-            if(num_neighbours == 2 || num_neighbours == 3){
-
+            if(1 < num_neighbours && num_neighbours < 4 && current_state.get(i,j) == ALIVE){
+                next_state.set(i,j,ALIVE);
+            }else if(num_neighbours == 3 && current_state.get(i,j) == DEAD){
+                next_state.set(i,j,ALIVE);
+            } else{
+                next_state.set(i,j,DEAD);
             }
         }
     }
+
+    std::swap(current_state, next_state);
 }
 
 /**
@@ -438,6 +444,6 @@ void World::step(bool toroidal) {
 //
 //}
 
-World::~World() {
-
-}
+//World::~World() {
+//
+//}
