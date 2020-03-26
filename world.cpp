@@ -42,6 +42,7 @@
  */
 World::World(){
     current_state = Grid();
+    next_state = Grid();
 }
 
 /**
@@ -65,6 +66,7 @@ World::World(){
  */
 World::World(unsigned int square_size){
     current_state = Grid(square_size);
+    next_state = Grid(square_size);
 }
 
 /**
@@ -84,6 +86,7 @@ World::World(unsigned int square_size){
  */
 World::World(unsigned int width, unsigned int height){
     current_state = Grid(width, height);
+    next_state = Grid(width, height);
 }
 
 /**
@@ -431,9 +434,9 @@ void World::step(bool toroidal) {
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-void World::advance(unsigned int steps, bool toroidal){
-
-}
+//void World::advance(unsigned int steps, bool toroidal){
+//
+//}
 
 World::~World() {
 
