@@ -47,7 +47,13 @@
  *      Returns a Grid containing a glider.
  */
 Grid Zoo::glider() {
-
+    Grid glider(3);
+    glider.set(1,0,ALIVE);
+    glider.set(2,1,ALIVE);
+    glider.set(0,2,ALIVE);
+    glider.set(1,2,ALIVE);
+    glider.set(2,2,ALIVE);
+    return glider;
 }
 
 /**
@@ -71,7 +77,6 @@ Grid Zoo::glider() {
  *      Returns a Grid containing a r-pentomino.
  */
 Grid Zoo::r_pentomino() {
-
 }
 
 /**
