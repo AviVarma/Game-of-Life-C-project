@@ -89,7 +89,7 @@ Grid Zoo::r_pentomino() {
 /**
  * Zoo::light_weight_spaceship()
  *
- * Construct a 3x3 grid containing a light weight spaceship.
+ * Construct a 5x4 grid containing a light weight spaceship.
  * https://www.conwaylife.com/wiki/Lightweight_spaceship
  *
  * @example
@@ -108,7 +108,17 @@ Grid Zoo::r_pentomino() {
  *      Returns a grid containing a light weight spaceship.
  */
 Grid Zoo::light_weight_spaceship() {
-
+    Grid light_weight_spaceship(5,4);
+    light_weight_spaceship.set(1,0,ALIVE);
+    light_weight_spaceship.set(4,0,ALIVE);
+    light_weight_spaceship.set(0,1,ALIVE);
+    light_weight_spaceship.set(0,2,ALIVE);
+    light_weight_spaceship.set(4,2,ALIVE);
+    light_weight_spaceship.set(0,3,ALIVE);
+    light_weight_spaceship.set(1,3,ALIVE);
+    light_weight_spaceship.set(2,3,ALIVE);
+    light_weight_spaceship.set(3,3,ALIVE);
+    return light_weight_spaceship;
 }
 
 /**
