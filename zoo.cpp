@@ -77,6 +77,13 @@ Grid Zoo::glider() {
  *      Returns a Grid containing a r-pentomino.
  */
 Grid Zoo::r_pentomino() {
+    Grid r_pentomino(3);
+    r_pentomino.set(1,0,ALIVE);
+    r_pentomino.set(2,0,ALIVE);
+    r_pentomino.set(0,1,ALIVE);
+    r_pentomino.set(1,1,ALIVE);
+    r_pentomino.set(1,2,ALIVE);
+    return r_pentomino;
 }
 
 /**
