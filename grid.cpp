@@ -296,8 +296,8 @@ void Grid::resize(unsigned int new_width, unsigned int new_height){
         }
     }
 
-    old_grid = nullptr;
     delete[] old_grid;
+    old_grid = nullptr;
     width = new_width;
     height = new_height;
 }
@@ -716,7 +716,6 @@ std::ostream& operator<<(std::ostream& output_stream, Grid grid){
         output_stream << "-";
     }
     output_stream << "+\n";
-
     return output_stream;
 }
 
