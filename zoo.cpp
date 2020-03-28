@@ -21,6 +21,8 @@
  * @author 957552
  * @date March, 2020
  */
+#include <fstream>
+#include <iostream>
 #include "zoo.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -145,8 +147,33 @@ Grid Zoo::light_weight_spaceship() {
  *          - Newline characters are not found when expected during parsing.
  *          - The character for a cell is not the ALIVE or DEAD character.
  */
-Grid Zoo::load_ascii(std::string path) {
+Grid Zoo::load_ascii(const std::string& path) {
+    std::ifstream file(path);
+    int x;
+    int y;
+    char buffer;
+    Grid new_grid;
+    if(file){
+        file >> x;
+        file >> y;
+        new_grid = Grid(x,y);
+        for(int j=0; j<y; j++){
+            file.get(buffer);
+            for(int i=0; i<x; i++){
+                file.get(buffer);
+                if(buffer == ALIVE){
+                    new_grid.set(i, j, ALIVE);
+                } else{
+                    new_grid.set(i, j, DEAD);
+                }
+            }
+        }
 
+    } else {
+        throw(std::runtime_error("The path given to function: Zoo::load_ascii is incorrect."));
+    }
+    file.close();
+    return new_grid;
 }
 
 /**
