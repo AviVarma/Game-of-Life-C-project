@@ -204,8 +204,24 @@ Grid Zoo::load_ascii(const std::string& path) {
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
-void save_ascii(std::string& path, Grid& grid){
-
+void Zoo::save_ascii(std::string path, Grid grid){
+    std::ofstream file(path);
+    if(file){
+        file << grid.get_width() << " " << grid.get_height() << "\n";
+        for(unsigned int j = 0; j<grid.get_width(); j++){
+            for(unsigned int i = 0; i<grid.get_width(); i++){
+                if(grid.get(i,j) == DEAD){
+                    file << (char) DEAD;
+                } else if (grid.get(i,j) == ALIVE){
+                    file << (char) ALIVE;
+                }
+            }
+            file << "\n";
+        }
+    } else{
+        throw(std::runtime_error("The path given to function: Zoo::load_ascii is incorrect."));
+    }
+    file.close();
 }
 
 /**
