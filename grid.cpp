@@ -626,32 +626,23 @@ Grid Grid::rotate(int rotation) const{
 
     rotation = std::abs(rotation % 4 + 4) % 4;
 
-    // setup new width and height since the dimensions are now changing.
-    if(rotation == 1 || rotation == 3)
-    {
-        new_grid.width = height;
-        new_grid.height = width;
-    }
-
     for(unsigned int j=0; j<new_grid.height; j++){
         for(unsigned int i=0; i<new_grid.width; i++){
-            switch(rotation){
-                case 1: // rotate 90 degrees clockwise
-                    new_grid.set(i,j, get(j,height-1-i));
-                    break;
-                case 2: // rotate 180 degrees
-                    new_grid.set(i,j, get(height - i,height-1-j));
-                    break;
-                case 3: // rotate 90 degrees anti-clockwise
-                    new_grid.set(i,j, get(width-1-j,i));
-                    break;
-                default:
-                    new_grid.set(i,j, get(i,j));
-                    break;
+            if(rotation == 1){
+                new_grid.width = height;
+                new_grid.height = width;
+                new_grid.set(i,j, get(j,height-1-i));
+            } else if ( rotation == 2){
+                new_grid.set(i,j, get(height - i,height-1-j));
+            } else if (rotation == 3){
+                new_grid.width = height;
+                new_grid.height = width;
+                new_grid.set(i,j, get(width-1-j,i));
+            } else {
+                new_grid.set(i,j, get(i,j));
             }
         }
     }
-
     return new_grid;
 }
 
