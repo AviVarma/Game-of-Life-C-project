@@ -149,17 +149,17 @@ Grid Zoo::light_weight_spaceship() {
  */
 Grid Zoo::load_ascii(const std::string& path) {
     std::ifstream file(path);
-    int x;
-    int y;
+    int width;
+    int height;
     char buffer;
     Grid new_grid;
     if(file){
-        file >> x;
-        file >> y;
-        new_grid = Grid(x,y);
-        for(int j=0; j<y; j++){
+        file >> width;
+        file >> height;
+        new_grid = Grid(width,height);
+        for(int j=0; j<height; j++){
             file.get(buffer);
-            for(int i=0; i<x; i++){
+            for(int i=0; i<width; i++){
                 file.get(buffer);
                 if(buffer == ALIVE){
                     new_grid.set(i, j, ALIVE);
