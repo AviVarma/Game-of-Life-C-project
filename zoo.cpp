@@ -248,7 +248,7 @@ void Zoo::save_ascii(const std::string& path, const Grid& grid){
  *          - The file ends unexpectedly.
  */
 Grid Zoo::load_binary(const std::string& path){
-    std::ifstream file("../GLIDER.bgol", std::ios::in | std::ios::binary);
+    std::ifstream file(path, std::ios::in | std::ios::binary);
     if(file){
         int width;
         int height;
