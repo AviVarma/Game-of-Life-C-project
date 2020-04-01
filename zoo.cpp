@@ -257,7 +257,21 @@ Grid Zoo::load_binary(const std::string& path){
         file.read((char*)& height, sizeof height);
         new_grid = Grid(width,height);
 
+        int* bits = new int[64];
+        char c;
+        for (int j = 0; file.get(c); j++) {
+            for (int i = 0; i < 8; i++){
+                if((c >> i & 1) == 0){
+                    bits[j*8+i] = 0;
+                }
+                if((c >> i & 1) == 1){
+                    bits[j*8+i] = 1;
+                }
+            }
+        }
 
+        delete[] bits;
+        bits = nullptr;
         file.close();
         return new_grid;
     } else{
