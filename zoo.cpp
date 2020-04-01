@@ -219,7 +219,7 @@ void Zoo::save_ascii(const std::string& path, const Grid& grid){
             file << "\n";
         }
     } else{
-        throw(std::runtime_error("The path given to function: Zoo::load_ascii is incorrect."));
+        throw(std::runtime_error("The path given to function: Zoo::save_ascii is incorrect."));
     }
     file.close();
 }
@@ -247,7 +247,14 @@ void Zoo::save_ascii(const std::string& path, const Grid& grid){
  *          - The file ends unexpectedly.
  */
 Grid Zoo::load_binary(const std::string& path){
-
+    std::ifstream file("../GLIDER.bgol", std::ios::in | std::ios::binary);
+    if(file){
+        int width;
+        int height;
+    } else{
+        throw(std::runtime_error("The path given to function: Zoo::load_binary is incorrect."));
+    }
+    file.close();
 }
 
 /**
