@@ -23,6 +23,8 @@
  */
 #include <fstream>
 #include <iostream>
+#include <algorithm>
+#include <bitset>
 #include "zoo.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -332,13 +334,17 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
             bits[i] = '0';
         }
 
-        for(int j=0; j<grid.get_height(); j++){
-            for(int i=0; i<grid.get_width(); i++){
+        for(unsigned int j=0; j<grid.get_height(); j++){
+            for(unsigned int i=0; i<grid.get_width(); i++){
                 if(grid.get(i,j) == ALIVE){
                     bits[(j*grid.get_width())+i] = '1';
                 }
             }
         }
+
+        std::reverse(&bits[0], &bits[64]);
+        std::bitset<64> bitsream(bits);
+        file.write(reinterpret_cast<const char*>(&bitsream), sizeof(bitsream));
 
         delete[] bits;
         bits = nullptr;
