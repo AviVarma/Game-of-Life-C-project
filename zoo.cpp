@@ -322,6 +322,8 @@ Grid Zoo::load_binary(const std::string& path){
 void Zoo::save_binary(const std::string &path, const Grid &grid) {
     std::ofstream file(path);
     if(file){
+        file.write(reinterpret_cast<const char *>(grid.get_width()), sizeof(int));
+        file.write(reinterpret_cast<const char *>(grid.get_height()), sizeof(int));
 
     } else{
         throw(std::runtime_error(std::exception().what()));
