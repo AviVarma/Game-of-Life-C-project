@@ -319,4 +319,12 @@ Grid Zoo::load_binary(const std::string& path){
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
+void Zoo::save_binary(const std::string &path, const Grid &grid) {
+    std::ofstream file(path);
+    if(file){
 
+    } else{
+        throw(std::runtime_error(std::exception().what()));
+    }
+    file.close();
+}
