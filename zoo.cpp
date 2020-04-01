@@ -325,6 +325,13 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
         file.write(reinterpret_cast<const char *>(grid.get_width()), sizeof(int));
         file.write(reinterpret_cast<const char *>(grid.get_height()), sizeof(int));
 
+
+        int* bits = new int[64];
+        for(int i = 0; i<64; i++){
+            bits[i] = 0;
+        }
+        delete[] bits;
+        bits = nullptr;
     } else{
         throw(std::runtime_error(std::exception().what()));
     }
