@@ -322,14 +322,24 @@ Grid Zoo::load_binary(const std::string& path){
 void Zoo::save_binary(const std::string &path, const Grid &grid) {
     std::ofstream file(path);
     if(file){
-        file.write(reinterpret_cast<const char *>(grid.get_width()), sizeof(int));
-        file.write(reinterpret_cast<const char *>(grid.get_height()), sizeof(int));
-
+        int width = (int) grid.get_width();
+        int height = (int) grid.get_height();
+        file.write(reinterpret_cast<const char *>(&width), sizeof(width));
+        file.write(reinterpret_cast<const char *>(&height), sizeof(height));
 
         int* bits = new int[64];
         for(int i = 0; i<64; i++){
             bits[i] = 0;
         }
+
+        for(int j=0; j<grid.get_height(); j++){
+            for(int i=0; i<grid.get_width(); i++){
+                if(grid.get(i,j) == ALIVE){
+                    bits[(j*grid.get_width())+i] = 1;
+                }
+            }
+        }
+
         delete[] bits;
         bits = nullptr;
     } else{
