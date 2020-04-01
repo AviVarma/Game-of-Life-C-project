@@ -149,11 +149,11 @@ Grid Zoo::light_weight_spaceship() {
  */
 Grid Zoo::load_ascii(const std::string& path) {
     std::ifstream file(path);
-    int width;
-    int height;
-    char buffer;
-    Grid new_grid;
     if(file){
+        int width;
+        int height;
+        char buffer;
+        Grid new_grid;
         file >> width;
         file >> height;
         new_grid = Grid(width,height);
@@ -169,11 +169,12 @@ Grid Zoo::load_ascii(const std::string& path) {
             }
         }
 
+        file.close();
+        return new_grid;
     } else {
+        file.close();
         throw(std::runtime_error("The path given to function: Zoo::load_ascii is incorrect."));
     }
-    file.close();
-    return new_grid;
 }
 
 /**
