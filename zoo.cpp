@@ -270,6 +270,16 @@ Grid Zoo::load_binary(const std::string& path){
             }
         }
 
+        for(int j=0; j<6; j++){
+            for(int i=0; i<6; i++){
+                if(bits[(j*6)+i] == 0){
+                    new_grid.set(i,j,DEAD);
+                } else if(bits[(j*6)+i] == 1){
+                    new_grid.set(i,j,ALIVE);
+                }
+            }
+        }
+
         delete[] bits;
         bits = nullptr;
         file.close();
