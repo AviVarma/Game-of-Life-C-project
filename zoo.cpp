@@ -251,10 +251,19 @@ Grid Zoo::load_binary(const std::string& path){
     if(file){
         int width;
         int height;
+        Grid new_grid;
+
+        file.read((char*)& width, sizeof width);
+        file.read((char*)& height, sizeof height);
+        new_grid = Grid(width,height);
+
+
+        file.close();
+        return new_grid;
     } else{
+        file.close();
         throw(std::runtime_error("The path given to function: Zoo::load_binary is incorrect."));
     }
-    file.close();
 }
 
 /**
