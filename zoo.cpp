@@ -221,7 +221,7 @@ void Zoo::save_ascii(const std::string& path, const Grid& grid){
     std::ofstream file(path);
     if(file){
         file << grid.get_width() << " " << grid.get_height() << "\n";
-        for(unsigned int j = 0; j<grid.get_width(); j++){
+        for(unsigned int j = 0; j<grid.get_height(); j++){
             for(unsigned int i = 0; i<grid.get_width(); i++){
                 if(grid.get(i,j) == DEAD){
                     file << (char) DEAD;
@@ -272,6 +272,7 @@ Grid Zoo::load_binary(const std::string& path){
 
         int* bits = new int[64];
         char c;
+        int count = 0;
         for (int j = 0; file.get(c); j++) {
             for (int i = 0; i < 8; i++){
                 if((c >> i & 1) == 0){
@@ -280,8 +281,13 @@ Grid Zoo::load_binary(const std::string& path){
                 if((c >> i & 1) == 1){
                     bits[j*8+i] = 1;
                 }
+                count++;
             }
         }
+
+//        if(count != 64){
+//            throw(std::runtime_error("The file ends unexpectedly."));
+//        }
 
         for(int j=0; j<height; j++){
             for(int i=0; i<width; i++){
