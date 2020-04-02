@@ -597,7 +597,7 @@ void Grid::merge(const Grid& other, unsigned int x0, unsigned int y0, bool alive
                 set(i+x0,j+y0, other.grid[(j*(other.width))+i]);
                 }
                 if(alive_only){
-                    if(other.grid[((j-y0)*(other.width))+(i-x0)] == Cell::ALIVE) {
+                    if(get(i+x0,j+y0) != ALIVE) {
                         set(i+x0,j+y0 ,other.grid[(j*(other.width))+i]);
                     }
                 }
