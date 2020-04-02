@@ -285,9 +285,9 @@ Grid Zoo::load_binary(const std::string& path){
             }
         }
 
-//        if(count != 64){
-//            throw(std::runtime_error("The file ends unexpectedly."));
-//        }
+        if(count != 64){
+            throw(std::runtime_error("The file ends unexpectedly."));
+        }
 
         for(int j=0; j<height; j++){
             for(int i=0; i<width; i++){
