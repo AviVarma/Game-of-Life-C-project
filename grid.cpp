@@ -524,6 +524,10 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
         throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
     } else if (y1 > height){
         throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    } else if (x0 > x1){
+        throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    } else if(y0 > y1){
+        throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
     }
     Grid new_grid = Grid(x1-x0, y1-y0);
 
@@ -577,13 +581,16 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
 */
 void Grid::merge(const Grid& other, unsigned int x0, unsigned int y0, bool alive_only){
-    if(other.width > width || other.height > height){
+    if(other.get_width() > width || other.get_height() > height){
         throw(std::invalid_argument("The inputted grid does not fit within the bounds of the current grid"));
-    }
-
-    if(other.width*height > width*height){
+    } else if(other.get_height()*other.get_width() > width*height){
         throw(std::exception());
-    } else {
+    } else if(x0 < 0 || y0 <0){
+        throw(std::invalid_argument("The x0 and y0 values need to be positive values."));
+    } else if(x0+other.get_width() > width || y0+other.get_height() > height){
+        throw(std::exception());
+    }
+    else {
         for(unsigned int j=0; j<other.height; j++) {
             for(unsigned int i=0; i<other.width; i++) {
                 if(!alive_only) {
