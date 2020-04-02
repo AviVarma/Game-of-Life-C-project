@@ -149,7 +149,7 @@ Grid Zoo::light_weight_spaceship() {
  *          - Newline characters are not found when expected during parsing.
  *          - The character for a cell is not the ALIVE or DEAD character.
  */
-Grid Zoo::load_ascii(const std::string& path) {
+Grid Zoo::load_ascii(const std::string& path){
     std::ifstream file(path);
     if(file){
         int width;
@@ -158,24 +158,34 @@ Grid Zoo::load_ascii(const std::string& path) {
         Grid new_grid;
         file >> width;
         file >> height;
-        new_grid = Grid(width,height);
-        for(int j=0; j<height; j++){
-            file.get(buffer);
-            for(int i=0; i<width; i++){
+        if(width > 0 || height > 0){
+            new_grid = Grid(width,height);
+            for(int j=0; j<height; j++){
                 file.get(buffer);
-                if(buffer == ALIVE){
-                    new_grid.set(i, j, ALIVE);
+                if(buffer == '\n'){
+                    for(int i=0; i<width; i++){
+                        file.get(buffer);
+                        if(buffer == ALIVE){
+                            new_grid.set(i, j, ALIVE);
+                        } else if(buffer == DEAD){
+                            new_grid.set(i, j, DEAD);
+                        } else{
+                            throw(std::runtime_error("The character for a cell is not the ALIVE or DEAD character."));
+                        }
+                    }
                 } else{
-                    new_grid.set(i, j, DEAD);
+                    throw(std::runtime_error("Newline characters are not found when expected during parsing."));
                 }
             }
+        } else{
+            throw(std::runtime_error("The parsed width or height is not a positive integer."));
         }
 
         file.close();
         return new_grid;
-    } else {
+    } else{
         file.close();
-        throw(std::runtime_error("The path given to function: Zoo::load_ascii is incorrect."));
+        throw(std::runtime_error("The file cannot be opened."));
     }
 }
 
