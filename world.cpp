@@ -21,7 +21,6 @@
  * @author 957552
  * @date March, 2020
  */
-#include <sstream>
 #include <iostream>
 #include "grid.h"
 #include "world.h"
@@ -373,7 +372,7 @@ int World::count_neighbours(int x, int y, bool toroidal){
 //    std::cout << "i+x+width | : " << (i+x+width) << std::endl;
 //    std::cout << "x_val | : " << x_val << std::endl;
 
-    if(toroidal == true){
+    if(toroidal){
         if(current_state.get((x-1+width)%width,(y+1+height)%height) == ALIVE){
             alive_neighbours++;
         }
