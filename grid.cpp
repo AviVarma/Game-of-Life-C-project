@@ -297,7 +297,6 @@ void Grid::resize(unsigned int new_width, unsigned int new_height){
     }
 
     delete[] old_grid;
-    old_grid = nullptr;
     width = new_width;
     height = new_height;
 }
@@ -516,18 +515,14 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const {
  *      or if the crop window has a negative size.
  */
 Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1) const{
-    if(x0 > width){
+    if(x0 > width || x1 > width){
         throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
-    } else if (y0 > height){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
-    } else if (x1 > width){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
-    } else if (y1 > height){
+    } else if (y0 > height || y1 > height){
         throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
     } else if (x0 > x1){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+        throw(std::invalid_argument("Error x0 > x1 in function: Grid::crop(x0,y0,x1,y1)"));
     } else if(y0 > y1){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+        throw(std::invalid_argument("Error y0 > y1 in function: Grid::crop(x0,y0,x1,y1)"));
     }
     Grid new_grid = Grid(x1-x0, y1-y0);
 
@@ -582,13 +577,17 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
 */
 void Grid::merge(const Grid& other, unsigned int x0, unsigned int y0, bool alive_only){
     if(other.get_width() > width || other.get_height() > height){
-        throw(std::invalid_argument("The inputted grid does not fit within the bounds of the current grid"));
-    } else if(other.get_height()*other.get_width() > width*height){
-        throw(std::exception());
+        throw(std::invalid_argument(
+                "Grid::merge error: the other grid width or height is larger than the original width or height."));
+    } else if(other.get_total_cells() > get_total_cells()){
+        throw(std::invalid_argument(
+                "Grid::merger error: the other grid area is larger than the original grid area."));
     } else if(x0 < 0 || y0 <0){
-        throw(std::invalid_argument("The x0 and y0 values need to be positive values."));
-    } else if(x0+other.get_width() > width || y0+other.get_height() > height){
-        throw(std::exception());
+        throw(std::invalid_argument(
+                "Grid::merger error: x0 and y0 must be greater than 0."));
+    } else if(x0 + other.get_width() > width || y0+other.get_height() > height){
+        throw(std::invalid_argument(
+                "Grid::merger error: the other grid being placed does not fit within the bounds of the current grid."));
     }
     else {
         for(unsigned int j=0; j<other.height; j++) {
