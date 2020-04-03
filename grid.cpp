@@ -640,7 +640,7 @@ Grid Grid::rotate(int rotation) const{
                 new_grid.height = width;
                 new_grid.set(i,j, get(j,height-1-i));
             } else if ( rotation == 2){
-                new_grid.set(i,j, get(height - 1,height-1-j));
+                new_grid.set(i,j, get(width-i-1,height-j-1));
             } else if (rotation == 3){
                 new_grid.width = height;
                 new_grid.height = width;
@@ -720,6 +720,5 @@ std::ostream& operator<<(std::ostream& output_stream, const Grid& grid){
 Grid::~Grid(){
     this->width = 0;
     this->height = 0;
-    this->grid = nullptr;
     delete[] grid;
 }
