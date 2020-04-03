@@ -720,5 +720,6 @@ std::ostream& operator<<(std::ostream& output_stream, const Grid& grid){
 Grid::~Grid(){
     this->width = 0;
     this->height = 0;
+    grid = nullptr;
     delete[] grid;
 }
