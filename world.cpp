@@ -489,8 +489,3 @@ void World::advance(unsigned int steps, bool toroidal){
         step(toroidal);
     }
 }
-
-World::~World() {
-    this->height = 0;
-    this->width = 0;
-}

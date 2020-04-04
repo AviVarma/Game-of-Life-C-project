@@ -721,8 +721,3 @@ std::ostream& operator<<(std::ostream& output_stream, const Grid& grid){
     output_stream << "+\n";
     return output_stream;
 }
-
-Grid::~Grid(){
-    this->width = 0;
-    this->height = 0;
-}
