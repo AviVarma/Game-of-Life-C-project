@@ -13,6 +13,8 @@
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
 
+#include <vector>
+
 /**
  * A Cell is a char limited to two named values for Cell::DEAD and Cell::ALIVE.
  */
@@ -31,7 +33,7 @@ class Grid {
 private:
     unsigned int width;
     unsigned int height;
-    Cell * grid;
+    std::vector<Cell> grid;
 
     unsigned int get_index(unsigned int x, unsigned int y) const;
 public:

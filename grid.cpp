@@ -13,6 +13,7 @@
  */
 #include <algorithm>
 #include <iostream>
+
 #include "grid.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -31,7 +32,8 @@
  *
  */
 Grid::Grid(): width(0), height(0){
-    grid = new Cell[width*height];
+    grid.resize(width*height);
+    //grid = new Cell[width*height];
 }
 
 /**
@@ -60,7 +62,8 @@ Grid::Grid(): width(0), height(0){
 Grid::Grid(unsigned int square_size): width(0), height(0){
     this->height = square_size;
     this->width = square_size;
-    grid = new Cell[width*height];
+    //grid = new Cell[width*height];
+    grid.resize(width*height);
 
     for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
@@ -86,7 +89,8 @@ Grid::Grid(unsigned int square_size): width(0), height(0){
 Grid::Grid(unsigned int width, unsigned int height): width(0), height(0){
     this->width = width;
     this->height = height;
-    grid = new Cell[width*height];
+    //grid = new Cell[width*height];
+    grid.resize(width*height);
 
     for(unsigned int i=0; i<width*height; i++){
         grid[i] = DEAD;
@@ -283,8 +287,10 @@ void Grid::resize(unsigned int square_size) {
  */
 
 void Grid::resize(unsigned int new_width, unsigned int new_height){
-    Cell *old_grid = grid;
-    grid = new Cell[new_width * new_height];
+    std::vector<Cell> old_grid = grid;
+    grid.resize(new_height*new_width);
+    //Cell *old_grid = grid;
+    //grid = new Cell[new_width * new_height];
 
     for (unsigned int a = 0; a < new_height * new_width; a++) {
         grid[a] = DEAD;
@@ -296,7 +302,7 @@ void Grid::resize(unsigned int new_width, unsigned int new_height){
         }
     }
 
-    delete[] old_grid;
+    //delete[] old_grid;
     width = new_width;
     height = new_height;
 }
@@ -719,6 +725,4 @@ std::ostream& operator<<(std::ostream& output_stream, const Grid& grid){
 Grid::~Grid(){
     this->width = 0;
     this->height = 0;
-    grid = nullptr;
-    delete[] grid;
 }
