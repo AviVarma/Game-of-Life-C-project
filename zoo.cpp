@@ -286,6 +286,7 @@ Grid Zoo::load_binary(const std::string& path){
         }
 
         if(count != 64){
+            delete[] bits;
             throw(std::runtime_error("The file ends unexpectedly."));
         }
 
@@ -300,7 +301,6 @@ Grid Zoo::load_binary(const std::string& path){
         }
 
         delete[] bits;
-        bits = nullptr;
         file.close();
         return new_grid;
     } else{
@@ -363,7 +363,6 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
         file.write(reinterpret_cast<const char*>(&bitsream), sizeof(bitsream));
 
         delete[] bits;
-        bits = nullptr;
     } else{
         throw(std::runtime_error(std::exception().what()));
     }
