@@ -345,24 +345,20 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
         file.write(reinterpret_cast<const char *>(&width), sizeof(width));
         file.write(reinterpret_cast<const char *>(&height), sizeof(height));
 
-        char* bits = new char[64];
+        std::bitset<64> bits{};
         for(int i = 0; i<64; i++){
-            bits[i] = '0';
+            bits[i] = false;
         }
 
         for(unsigned int j=0; j<grid.get_height(); j++){
             for(unsigned int i=0; i<grid.get_width(); i++){
                 if(grid.get(i,j) == ALIVE){
-                    bits[(j*grid.get_width())+i] = '1';
+                    bits[(j*grid.get_width())+i] = true;
                 }
             }
         }
 
-        std::reverse(&bits[0], &bits[64]);
-        std::bitset<64> bitsream(bits);
-        file.write(reinterpret_cast<const char*>(&bitsream), sizeof(bitsream));
-
-        delete[] bits;
+        file.write(reinterpret_cast<const char*>(&bits), sizeof(bits));
     } else{
         throw(std::runtime_error(std::exception().what()));
     }
