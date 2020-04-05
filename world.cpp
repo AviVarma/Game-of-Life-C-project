@@ -39,7 +39,7 @@
  *      World world;
  *
  */
-World::World(): width(0), height(0){
+World::World(){
     current_state = Grid();
     next_state = Grid();
 }
@@ -63,10 +63,7 @@ World::World(): width(0), height(0){
  * @param square_size
  *      The edge size to use for the width and height of the world.
  */
-World::World(unsigned int square_size): width(0), height(0){
-    this->width = (int) square_size;
-    this->height = (int) square_size;
-
+World::World(unsigned int square_size){
     current_state = Grid(square_size);
     next_state = Grid(square_size);
 }
@@ -86,10 +83,7 @@ World::World(unsigned int square_size): width(0), height(0){
  * @param height
  *      The height of the world.
  */
-World::World(unsigned int width, unsigned int height): width(0), height(0){
-    this->width = (int) width;
-    this->height = (int) height;
-
+World::World(unsigned int width, unsigned int height){
     current_state = Grid(width, height);
     next_state = Grid(width, height);
 }
@@ -113,12 +107,9 @@ World::World(unsigned int width, unsigned int height): width(0), height(0){
  * @param initial_state
  *      The state of the constructed world.
  */
-World::World(const Grid& initial_state): width(0), height(0){
-    this->width = (int) initial_state.get_width();
-    this->height = (int) initial_state.get_height();
-
+World::World(const Grid& initial_state){
     current_state = initial_state;
-    next_state = Grid(width, height);
+    next_state = Grid(initial_state.get_width(), initial_state.get_height());
 }
 
 /**
@@ -366,12 +357,6 @@ void World::resize(unsigned int new_width, unsigned int new_height){
  */
 int World::count_neighbours(int x, int y, bool toroidal){
     int alive_neighbours  = 0;
-//    std::cout << "width of current grid: " << current_state.get_width() << std::endl;
-//    std::cout << "i | : " << i << std::endl;
-//    std::cout << "x | : " << x << std::endl;
-//    std::cout << "i+x+width | : " << (i+x+width) << std::endl;
-//    std::cout << "x_val | : " << x_val << std::endl;
-
     if(toroidal){
         for(int j = -1; j<=1; j++){
             for(int i = -1; i <= 1; i++){
@@ -415,12 +400,9 @@ int World::count_neighbours(int x, int y, bool toroidal){
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
 void World::step(bool toroidal) {
-
-    for(int j = 0; j < height; j++){
-        for(int i = 0; i < width; i++){
+    for(int j = 0; j < (int) current_state.get_height(); j++){
+        for(int i = 0; i < (int) current_state.get_width(); i++){
             int num_neighbours = count_neighbours(i,j, toroidal);
-            //std::cout << "i,j | " << i << " " << j << " | neighbours | "<< num_neighbours << std::endl;
-            // implement the rules here
             if((num_neighbours == 2 && current_state.get(i,j) == ALIVE) || (num_neighbours ==3 && current_state.get(i,j) == ALIVE)){
                 next_state.set(i,j,ALIVE);
             } else if(num_neighbours == 3 && current_state.get(i,j) == DEAD){
@@ -430,7 +412,6 @@ void World::step(bool toroidal) {
             }
         }
     }
-//    std::cout << " " <<std::endl;
     std::swap(next_state, current_state);
 }
 
@@ -449,10 +430,6 @@ void World::step(bool toroidal) {
  */
 void World::advance(unsigned int steps, bool toroidal){
     for(unsigned int i = 0; i<steps; i++){
-//        std::stringstream stream;
-//        stream << current_state;
-//        const std::string observed = stream.str();
-//        std::cout << "[" << i << "]\n" << observed << std::endl;
         step(toroidal);
     }
 }

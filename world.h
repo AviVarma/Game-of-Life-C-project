@@ -28,8 +28,6 @@ class World {
 private:
     Grid current_state;
     Grid next_state;
-    int width;
-    int height;
     int count_neighbours(int x, int y, bool toroidal);
 public:
     World();
