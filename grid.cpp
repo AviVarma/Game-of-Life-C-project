@@ -13,7 +13,6 @@
  */
 #include <algorithm>
 #include <iostream>
-
 #include "grid.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -200,7 +199,7 @@ unsigned int Grid::get_total_cells() const{
  */
 unsigned int Grid::get_alive_cells() const{
     unsigned int alive_cells = 0;
-    for(unsigned int i=0; i<(width*height); i++){
+    for(unsigned int i=0; i<get_total_cells(); i++){
         if(grid[i] == ALIVE){
             alive_cells++;
         }
@@ -233,7 +232,7 @@ unsigned int Grid::get_alive_cells() const{
  */
 unsigned int Grid::get_dead_cells() const{
     unsigned int dead_cells = 0;
-    for(unsigned int i=0; i<(width*height); i++){
+    for(unsigned int i=0; i<get_total_cells(); i++){
         if(grid[i] == DEAD){
             dead_cells++;
         }
