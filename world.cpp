@@ -373,55 +373,22 @@ int World::count_neighbours(int x, int y, bool toroidal){
 //    std::cout << "x_val | : " << x_val << std::endl;
 
     if(toroidal){
-        if(current_state.get((x-1+width)%width,(y+1+height)%height) == ALIVE){
-            alive_neighbours++;
+        for(int j = -1; j<=1; j++){
+            for(int i = -1; i <= 1; i++){
+                if(!(i == 0 && j == 0) &&
+                   current_state.get((i+x+get_width())%get_width(),(j+y+get_height())%get_height()) == ALIVE){
+                    alive_neighbours++;
+                }
+            }
         }
-        if(current_state.get((x+width)%width,(y+1+height)%height) == ALIVE){
-            alive_neighbours++;
-        }
-        if(current_state.get((x+1+width)%width,(y+1+height)%height) == ALIVE){
-            alive_neighbours++;
-        }
-        if(current_state.get((x-1+width)%width,(y+height)%height) == ALIVE){
-            alive_neighbours++;
-        }
-        if(current_state.get((x+1+width)%width,(y+height)%height) == ALIVE){
-            alive_neighbours++;
-        }
-        if(current_state.get((x-1+width)%width,(y-1+height)%height) == ALIVE){
-            alive_neighbours++;
-        }
-        if(current_state.get((x+width)%width,(y-1+height)%height) == ALIVE){
-            alive_neighbours++;
-        }
-        if(current_state.get((x+1+width)%width,(y-1+height)%height) == ALIVE) {
-            alive_neighbours++;
-        }
-
     } else{
-        if(y+1 <= height && x-1 >= 0 && current_state.get(x-1,y+1) == ALIVE){
-            alive_neighbours++;
-        }
-        if(y+1 <= height && current_state.get(x,y+1) == ALIVE){
-            alive_neighbours++;
-        }
-        if(y+1 <= height && x+1 <= width && current_state.get(x+1,y+1) == ALIVE){
-            alive_neighbours++;
-        }
-        if(x-1 >= 0 && current_state.get(x-1,y) == ALIVE){
-            alive_neighbours++;
-        }
-        if(x+1 <= width && current_state.get(x+1,y) == ALIVE){
-            alive_neighbours++;
-        }
-        if(y-1 >=0 && x-1 >=0 && current_state.get(x-1,y-1) == ALIVE){
-            alive_neighbours++;
-        }
-        if(y-1 >=0 && current_state.get(x,y-1) == ALIVE){
-            alive_neighbours++;
-        }
-        if(y-1 >=0 && x+1 <= width && current_state.get(x+1,y-1) == ALIVE){
-            alive_neighbours++;
+        for(int j = -1; j<=1; j++){
+            for(int i = -1; i <= 1; i++){
+                if((i+x >= 0 && i+x < (int) get_width()) && (j+y >= 0 && j+y < (int) get_height()) &&
+                   !(i == 0 && j == 0) && current_state.get(i+x,j+y) == ALIVE){
+                    alive_neighbours++;
+                }
+            }
         }
     }
     return alive_neighbours;
