@@ -258,6 +258,7 @@ unsigned int Grid::get_dead_cells() const{
  *      The new edge size for both the width and height of the grid.
  */
 void Grid::resize(unsigned int square_size) {
+    //instead of re-implementing the same algorithm, simply use the rectangle resize but height and width are the same.
     resize(square_size,square_size);
 }
 
@@ -317,7 +318,8 @@ void Grid::resize(unsigned int new_width, unsigned int new_height){
  *      The 1d offset from the start of the data array where the desired cell is located.
 */
 unsigned int Grid::get_index(unsigned int x, unsigned int y) const {
-    return (y*width)+x; // This equation lets you work in a 2d way with a 1d array.
+    // This equation lets you work in a 2D way with a 1D array.
+    return (y*width)+x;
 }
 
 /**
@@ -630,6 +632,10 @@ Grid Grid::rotate(int rotation) const{
     Grid new_grid = Grid(width, height);
 
     rotation = std::abs(rotation % 4 + 4) % 4;
+    // 0 = no rotation
+    // 1 = 90 degrees clockwise
+    // 2 = 180 degrees
+    // 3 = 90 degrees anti-clockwise
 
     for(unsigned int j=0; j<new_grid.height; j++){
         for(unsigned int i=0; i<new_grid.width; i++){

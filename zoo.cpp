@@ -271,11 +271,13 @@ Grid Zoo::load_binary(const std::string& path){
         file.read((char*)& height, sizeof height);
         new_grid = Grid(width,height);
 
+        // he equation below calculates height * width + bits needed to get to the nearest byte.
         int* bits = new int[(int)(ceil(((double)height*(double)width/8)))*8];
         char c;
         int count = 0;
         for (int j = 0; file.get(c); j++) {
             for (int i = 0; i < 8; i++){
+                //bitshift operator to read bit by bit since c++ smallest operator type is 1 Byte.
                 if((c >> i & 1) == 0 && count < (ceil(((double)height*(double)width/8)))*8){
                     bits[j*8+i] = 0;
                 }
@@ -291,6 +293,7 @@ Grid Zoo::load_binary(const std::string& path){
             throw(std::runtime_error("The file ends unexpectedly."));
         }
 
+        // Make the grid from the array.
         for(int j=0; j<height; j++){
             for(int i=0; i<width; i++){
                 if(bits[(j*width)+i] == 0){
@@ -346,13 +349,16 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
         file.write(reinterpret_cast<const char *>(&width), sizeof(width));
         file.write(reinterpret_cast<const char *>(&height), sizeof(height));
 
+        // bitset buffer
         std::bitset<8> bits;
         unsigned int count=0;
         for(unsigned int j=0; j<grid.get_height(); j++){
             for(unsigned int i=0; i<grid.get_width(); i++){
+                // set bit in bitset to true if ALIVE, else false.
                 bits.set(count % 8, grid.get(i, j) == Cell::ALIVE);
                 count++;
 
+                // once the bitset reaches 8 bits. write that byte into the file and reset the bitset array for next byte.
                 if(count % 8 == 0 || count == grid.get_total_cells()){
                     file.write((char*)(&bits), 1);
                     bits.reset();

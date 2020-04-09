@@ -360,6 +360,7 @@ int World::count_neighbours(int x, int y, bool toroidal){
     if(toroidal){
         for(int j = -1; j<=1; j++){
             for(int i = -1; i <= 1; i++){
+                // formula will wrap around if x or y is out of bounds.
                 if(!(i == 0 && j == 0) &&
                    current_state.get((i+x+get_width())%get_width(),(j+y+get_height())%get_height()) == ALIVE){
                     alive_neighbours++;
@@ -369,6 +370,7 @@ int World::count_neighbours(int x, int y, bool toroidal){
     } else{
         for(int j = -1; j<=1; j++){
             for(int i = -1; i <= 1; i++){
+                // check if the x and y meet the edge conditions, then get the values.
                 if((i+x >= 0 && i+x < (int) get_width()) && (j+y >= 0 && j+y < (int) get_height()) &&
                    !(i == 0 && j == 0) && current_state.get(i+x,j+y) == ALIVE){
                     alive_neighbours++;
