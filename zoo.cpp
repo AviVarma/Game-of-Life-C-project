@@ -25,6 +25,7 @@
 #include <iostream>
 #include <algorithm>
 #include <bitset>
+#include <cmath>
 #include "zoo.h"
 
 // Include the minimal number of headers needed to support your implementation.
@@ -270,22 +271,22 @@ Grid Zoo::load_binary(const std::string& path){
         file.read((char*)& height, sizeof height);
         new_grid = Grid(width,height);
 
-        int* bits = new int[(((height*width)%8)+1)*8];
+        int* bits = new int[(int)(ceil(((double)height*(double)width/8)))*8];
         char c;
         int count = 0;
         for (int j = 0; file.get(c); j++) {
             for (int i = 0; i < 8; i++){
-                if((c >> i & 1) == 0 && count < (((height*width)%8)+1)*8){
+                if((c >> i & 1) == 0 && count < (ceil(((double)height*(double)width/8)))*8){
                     bits[j*8+i] = 0;
                 }
-                if((c >> i & 1) == 1 && count < (((height*width)%8)+1)*8){
+                if((c >> i & 1) == 1 && count < (ceil(((double)height*(double)width/8)))*8){
                     bits[j*8+i] = 1;
                 }
                 count++;
             }
         }
 
-        if(count < (((height*width)%8)+1)*8){
+        if(count < (ceil(((double)height*(double)width/8)))*8){
             delete[] bits;
             throw(std::runtime_error("The file ends unexpectedly."));
         }
@@ -350,28 +351,14 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
         for(unsigned int j=0; j<grid.get_height(); j++){
             for(unsigned int i=0; i<grid.get_width(); i++){
                 bits.set(count % 8, grid.get(i, j) == Cell::ALIVE);
+                count++;
+
                 if(count % 8 == 0 || count == grid.get_total_cells()){
                     file.write((char*)(&bits), 1);
                     bits.reset();
                 }
-                count++;
-                //std::cout << count << std::endl;
             }
         }
-
-//        for(int i = 0; i<64; i++){
-//            bits[i] = false;
-//        }
-//
-//        for(unsigned int j=0; j<grid.get_height(); j++){
-//            for(unsigned int i=0; i<grid.get_width(); i++){
-//                if(grid.get(i,j) == ALIVE){
-//                    bits[(j*grid.get_width())+i] = true;
-//                }
-//            }
-//        }
-//
-//        file.write(reinterpret_cast<const char*>(&bits), sizeof(bits));
     } else{
         throw(std::runtime_error(std::exception().what()));
     }
