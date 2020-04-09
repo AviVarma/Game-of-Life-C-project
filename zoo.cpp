@@ -345,20 +345,33 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
         file.write(reinterpret_cast<const char *>(&width), sizeof(width));
         file.write(reinterpret_cast<const char *>(&height), sizeof(height));
 
-        std::bitset<64> bits{};
-        for(int i = 0; i<64; i++){
-            bits[i] = false;
-        }
-
+        std::bitset<8> bits;
+        unsigned int count=0;
         for(unsigned int j=0; j<grid.get_height(); j++){
             for(unsigned int i=0; i<grid.get_width(); i++){
-                if(grid.get(i,j) == ALIVE){
-                    bits[(j*grid.get_width())+i] = true;
+                bits.set(count % 8, grid.get(i, j) == Cell::ALIVE);
+                if(count % 8 == 0 || count == grid.get_total_cells()){
+                    file.write((char*)(&bits), 1);
+                    bits.reset();
                 }
+                count++;
+                //std::cout << count << std::endl;
             }
         }
 
-        file.write(reinterpret_cast<const char*>(&bits), sizeof(bits));
+//        for(int i = 0; i<64; i++){
+//            bits[i] = false;
+//        }
+//
+//        for(unsigned int j=0; j<grid.get_height(); j++){
+//            for(unsigned int i=0; i<grid.get_width(); i++){
+//                if(grid.get(i,j) == ALIVE){
+//                    bits[(j*grid.get_width())+i] = true;
+//                }
+//            }
+//        }
+//
+//        file.write(reinterpret_cast<const char*>(&bits), sizeof(bits));
     } else{
         throw(std::runtime_error(std::exception().what()));
     }
