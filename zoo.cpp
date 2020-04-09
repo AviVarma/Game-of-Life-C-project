@@ -270,22 +270,22 @@ Grid Zoo::load_binary(const std::string& path){
         file.read((char*)& height, sizeof height);
         new_grid = Grid(width,height);
 
-        int* bits = new int[64];
+        int* bits = new int[(((height*width)%8)+1)*8];
         char c;
         int count = 0;
         for (int j = 0; file.get(c); j++) {
             for (int i = 0; i < 8; i++){
-                if((c >> i & 1) == 0){
+                if((c >> i & 1) == 0 && count < (((height*width)%8)+1)*8){
                     bits[j*8+i] = 0;
                 }
-                if((c >> i & 1) == 1){
+                if((c >> i & 1) == 1 && count < (((height*width)%8)+1)*8){
                     bits[j*8+i] = 1;
                 }
                 count++;
             }
         }
 
-        if(count != 64){
+        if(count < (((height*width)%8)+1)*8){
             delete[] bits;
             throw(std::runtime_error("The file ends unexpectedly."));
         }
