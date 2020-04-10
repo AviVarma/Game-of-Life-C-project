@@ -135,7 +135,7 @@ World::World(const Grid& initial_state){
  * @return
  *      The width of the world.
  */
-unsigned int World::get_width() const {
+unsigned int World::get_width() const{
     return current_state.get_width();
 }
 
@@ -162,7 +162,7 @@ unsigned int World::get_width() const {
  * @return
  *      The height of the world.
  */
-unsigned int World::get_height() const {
+unsigned int World::get_height() const{
     return current_state.get_height();
 }
 
@@ -189,7 +189,7 @@ unsigned int World::get_height() const {
  * @return
  *      The number of total cells.
  */
-unsigned int World::get_total_cells() const {
+unsigned int World::get_total_cells() const{
     return current_state.get_total_cells();
 }
 
@@ -216,7 +216,7 @@ unsigned int World::get_total_cells() const {
  * @return
  *      The number of alive cells.
  */
-unsigned int World::get_alive_cells() const {
+unsigned int World::get_alive_cells() const{
     return current_state.get_alive_cells();
 }
 
@@ -243,7 +243,7 @@ unsigned int World::get_alive_cells() const {
  * @return
  *      The number of dead cells.
  */
-unsigned int World::get_dead_cells() const {
+unsigned int World::get_dead_cells() const{
     return current_state.get_dead_cells();
 }
 
@@ -294,7 +294,7 @@ Grid World::get_state() const{
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-void World::resize(unsigned int square_size) {
+void World::resize(unsigned int square_size){
     current_state.resize(square_size);
 }
 
@@ -401,7 +401,7 @@ int World::count_neighbours(int x, int y, bool toroidal){
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-void World::step(bool toroidal) {
+void World::step(bool toroidal){
     for(int j = 0; j < (int) current_state.get_height(); j++){
         for(int i = 0; i < (int) current_state.get_width(); i++){
             int num_neighbours = count_neighbours(i,j, toroidal);

@@ -257,7 +257,7 @@ unsigned int Grid::get_dead_cells() const{
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-void Grid::resize(unsigned int square_size) {
+void Grid::resize(unsigned int square_size){
     //instead of re-implementing the same algorithm, simply use the rectangle resize but height and width are the same.
     resize(square_size,square_size);
 }
@@ -287,7 +287,7 @@ void Grid::resize(unsigned int new_width, unsigned int new_height){
     std::vector<Cell> old_grid = grid;
     grid.resize(new_height*new_width);
 
-    for (unsigned int a = 0; a < new_height * new_width; a++) {
+    for (unsigned int a = 0; a < new_height * new_width; a++){
         grid[a] = DEAD;
     }
 
@@ -317,7 +317,7 @@ void Grid::resize(unsigned int new_width, unsigned int new_height){
  * @return
  *      The 1d offset from the start of the data array where the desired cell is located.
 */
-unsigned int Grid::get_index(unsigned int x, unsigned int y) const {
+unsigned int Grid::get_index(unsigned int x, unsigned int y) const{
     // This equation lets you work in a 2D way with a 1D array.
     return (y*width)+x;
 }
@@ -388,7 +388,7 @@ Cell Grid::get(unsigned int x, unsigned int y) const{
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-void Grid::set(const unsigned int x, const unsigned int y, const Cell value) {
+void Grid::set(const unsigned int x, const unsigned int y, const Cell value){
     if(x > width){
         throw(std::out_of_range("The value inputted for x in function: Grid::set(x,y,value) is out of bounds."));
     } else if (y > height){
@@ -433,7 +433,7 @@ void Grid::set(const unsigned int x, const unsigned int y, const Cell value) {
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-Cell& Grid::operator()(unsigned int x, unsigned int y) {
+Cell& Grid::operator()(unsigned int x, unsigned int y){
     if(x > width){
         throw(std::out_of_range("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
     } else if (y > height){
@@ -472,7 +472,7 @@ Cell& Grid::operator()(unsigned int x, unsigned int y) {
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-const Cell& Grid::operator()(unsigned int x, unsigned int y) const {
+const Cell& Grid::operator()(unsigned int x, unsigned int y) const{
     if(x > width){
         throw(std::out_of_range("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
     } else if (y > height){
@@ -591,13 +591,13 @@ void Grid::merge(const Grid& other, unsigned int x0, unsigned int y0, bool alive
                 "Grid::merger error: the other grid being placed does not fit within the bounds of the current grid."));
     }
     else {
-        for(unsigned int j=0; j<other.height; j++) {
-            for(unsigned int i=0; i<other.width; i++) {
-                if(!alive_only) {
+        for(unsigned int j=0; j<other.height; j++){
+            for(unsigned int i=0; i<other.width; i++){
+                if(!alive_only){
                 set(i+x0,j+y0, other.grid[(j*(other.width))+i]);
                 }
                 if(alive_only){
-                    if(get(i+x0,j+y0) != ALIVE) {
+                    if(get(i+x0,j+y0) != ALIVE){
                         set(i+x0,j+y0 ,other.grid[(j*(other.width))+i]);
                     }
                 }
@@ -649,7 +649,7 @@ Grid Grid::rotate(int rotation) const{
                 new_grid.width = height;
                 new_grid.height = width;
                 new_grid.set(i,j, get(width-1-j,i));
-            } else {
+            } else{
                 new_grid.set(i,j, get(i,j));
             }
         }

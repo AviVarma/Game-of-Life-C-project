@@ -51,7 +51,7 @@
  * @return
  *      Returns a Grid containing a glider.
  */
-Grid Zoo::glider() {
+Grid Zoo::glider(){
     Grid glider(3);
     glider.set(1,0,ALIVE);
     glider.set(2,1,ALIVE);
@@ -81,7 +81,7 @@ Grid Zoo::glider() {
  * @return
  *      Returns a Grid containing a r-pentomino.
  */
-Grid Zoo::r_pentomino() {
+Grid Zoo::r_pentomino(){
     Grid r_pentomino(3);
     r_pentomino.set(1,0,ALIVE);
     r_pentomino.set(2,0,ALIVE);
@@ -112,7 +112,7 @@ Grid Zoo::r_pentomino() {
  * @return
  *      Returns a grid containing a light weight spaceship.
  */
-Grid Zoo::light_weight_spaceship() {
+Grid Zoo::light_weight_spaceship(){
     Grid light_weight_spaceship(5,4);
     light_weight_spaceship.set(1,0,ALIVE);
     light_weight_spaceship.set(4,0,ALIVE);
@@ -275,7 +275,7 @@ Grid Zoo::load_binary(const std::string& path){
         int* bits = new int[(int)(ceil(((double)height*(double)width/8)))*8];
         char c;
         int count = 0;
-        for (int j = 0; file.get(c); j++) {
+        for (int j = 0; file.get(c); j++){
             for (int i = 0; i < 8; i++){
                 //bitshift operator to read bit by bit since c++ smallest operator type is 1 Byte.
                 if((c >> i & 1) == 0 && count < (ceil(((double)height*(double)width/8)))*8){
@@ -341,7 +341,7 @@ Grid Zoo::load_binary(const std::string& path){
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
-void Zoo::save_binary(const std::string &path, const Grid &grid) {
+void Zoo::save_binary(const std::string &path, const Grid &grid){
     std::ofstream file(path);
     if(file){
         int width = (int) grid.get_width();
