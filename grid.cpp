@@ -354,9 +354,9 @@ unsigned int Grid::get_index(unsigned int x, unsigned int y) const {
 
 Cell Grid::get(unsigned int x, unsigned int y) const{
     if(x > width){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::get(x,y) is out of bounds."));
+        throw(std::out_of_range("The value inputted for x in function: Grid::get(x,y) is out of bounds."));
     } else if (y > height){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::get(x,y) is out of bounds."));
+        throw(std::out_of_range("The value inputted for y in function: Grid::get(x,y) is out of bounds."));
     }
     return Grid::operator()(x,y);
 }
@@ -390,9 +390,9 @@ Cell Grid::get(unsigned int x, unsigned int y) const{
  */
 void Grid::set(const unsigned int x, const unsigned int y, const Cell value) {
     if(x > width){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::set(x,y,value) is out of bounds."));
+        throw(std::out_of_range("The value inputted for x in function: Grid::set(x,y,value) is out of bounds."));
     } else if (y > height){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::set(x,y.value) is out of bounds."));
+        throw(std::out_of_range("The value inputted for y in function: Grid::set(x,y.value) is out of bounds."));
     }
     Cell &old_value = Grid::operator()(x,y);
     old_value = value;
@@ -435,9 +435,9 @@ void Grid::set(const unsigned int x, const unsigned int y, const Cell value) {
  */
 Cell& Grid::operator()(unsigned int x, unsigned int y) {
     if(x > width){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
+        throw(std::out_of_range("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
     } else if (y > height){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
+        throw(std::out_of_range("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
     }
     return grid[get_index(x,y)];
 }
@@ -474,9 +474,9 @@ Cell& Grid::operator()(unsigned int x, unsigned int y) {
  */
 const Cell& Grid::operator()(unsigned int x, unsigned int y) const {
     if(x > width){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
+        throw(std::out_of_range("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
     } else if (y > height){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
+        throw(std::out_of_range("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
     }
     return grid[get_index(x,y)];
 }
@@ -517,13 +517,13 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const {
  */
 Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1) const{
     if(x0 > width || x1 > width){
-        throw(std::invalid_argument("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+        throw(std::range_error("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
     } else if (y0 > height || y1 > height){
-        throw(std::invalid_argument("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+        throw(std::range_error("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
     } else if (x0 > x1){
-        throw(std::invalid_argument("Error x0 > x1 in function: Grid::crop(x0,y0,x1,y1)"));
+        throw(std::range_error("Error x0 > x1 in function: Grid::crop(x0,y0,x1,y1)"));
     } else if(y0 > y1){
-        throw(std::invalid_argument("Error y0 > y1 in function: Grid::crop(x0,y0,x1,y1)"));
+        throw(std::range_error("Error y0 > y1 in function: Grid::crop(x0,y0,x1,y1)"));
     }
     Grid new_grid = Grid(x1-x0, y1-y0);
 
@@ -578,16 +578,16 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
 */
 void Grid::merge(const Grid& other, unsigned int x0, unsigned int y0, bool alive_only){
     if(other.get_width() > width || other.get_height() > height){
-        throw(std::invalid_argument(
+        throw(std::range_error(
                 "Grid::merge error: the other grid width or height is larger than the original width or height."));
     } else if(other.get_total_cells() > get_total_cells()){
-        throw(std::invalid_argument(
+        throw(std::range_error(
                 "Grid::merger error: the other grid area is larger than the original grid area."));
     } else if(x0 < 0 || y0 <0){
-        throw(std::invalid_argument(
+        throw(std::range_error(
                 "Grid::merger error: x0 and y0 must be greater than 0."));
     } else if(x0 + other.get_width() > width || y0+other.get_height() > height){
-        throw(std::invalid_argument(
+        throw(std::range_error(
                 "Grid::merger error: the other grid being placed does not fit within the bounds of the current grid."));
     }
     else {
