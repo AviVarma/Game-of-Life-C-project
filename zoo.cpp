@@ -290,7 +290,7 @@ Grid Zoo::load_binary(const std::string& path){
 
         if(count < (ceil(((double)height*(double)width/8)))*8){
             delete[] bits;
-            throw(std::runtime_error("The file ends unexpectedly."));
+            throw(std::runtime_error("The file: '" + path + "' ends unexpectedly."));
         }
 
         // Make the grid from the array.
@@ -366,7 +366,7 @@ void Zoo::save_binary(const std::string &path, const Grid &grid) {
             }
         }
     } else{
-        throw(std::runtime_error(std::exception().what()));
+        throw(std::runtime_error("The path given to function: Zoo::save_binary is incorrect."));
     }
     file.close();
 }
