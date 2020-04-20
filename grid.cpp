@@ -515,10 +515,12 @@ const Cell& Grid::operator()(unsigned int x, unsigned int y) const{
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1) const{
-    if(x0 > width || x1 > width){
+Grid Grid::crop(int x0, int y0, int x1, int y1) const{
+    if(x0 < 0 || x1 < 0 || y0 < 0 || y1 < 0){
+        throw(std::range_error("The value inputted for x and y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
+    } else if(x0 > (int)width || x1 > (int)width || x1-x0 > (int)width){
         throw(std::range_error("The value inputted for x in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
-    } else if (y0 > height || y1 > height){
+    } else if (y0 > (int)height || y1 > (int)height || y1-y0 > (int)height){
         throw(std::range_error("The value inputted for y in function: Grid::crop(x0,y0,x1,y1) is out of bounds."));
     } else if (x0 > x1){
         throw(std::range_error("Error x0 > x1 in function: Grid::crop(x0,y0,x1,y1)"));
@@ -527,14 +529,11 @@ Grid Grid::crop(unsigned int x0,unsigned int y0,unsigned int x1,unsigned int y1)
     }
     Grid new_grid = Grid(x1-x0, y1-y0);
 
-    for(unsigned int j=0; j<(y1-y0); j++){
-        for(unsigned int i=0; i<(x1-x0); i++){
-            new_grid.grid[(j*(x1-x0))+i] = grid[(j+y0)*(width)+(i+x0)];
+    for(unsigned int j=0; (int)j<(y1-y0); j++){
+        for(unsigned int i=0; (int)i<(x1-x0); i++){
+            new_grid.grid[(j*(x1-x0))+i] = grid[(j+y0)*((int)width)+(i+x0)];
         }
     }
-
-    new_grid.width = x1-x0;
-    new_grid.height = y1-y0;
 
     return new_grid;
 }
