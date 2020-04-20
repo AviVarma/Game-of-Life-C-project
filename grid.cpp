@@ -352,10 +352,10 @@ unsigned int Grid::get_index(unsigned int x, unsigned int y) const{
  */
 
 
-Cell Grid::get(unsigned int x, unsigned int y) const{
-    if(x > width){
+Cell Grid::get(int x, int y) const{
+    if(x > (int)width || x < 0){
         throw(std::out_of_range("The value inputted for x in function: Grid::get(x,y) is out of bounds."));
-    } else if (y > height){
+    } else if (y > (int)height || y < 0){
         throw(std::out_of_range("The value inputted for y in function: Grid::get(x,y) is out of bounds."));
     }
     return Grid::operator()(x,y);
@@ -388,10 +388,10 @@ Cell Grid::get(unsigned int x, unsigned int y) const{
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-void Grid::set(const unsigned int x, const unsigned int y, const Cell value){
-    if(x > width){
+void Grid::set(const int x, const int y, const Cell value){
+    if(x > (int)width || x < 0){
         throw(std::out_of_range("The value inputted for x in function: Grid::set(x,y,value) is out of bounds."));
-    } else if (y > height){
+    } else if (y > (int)height || y < 0){
         throw(std::out_of_range("The value inputted for y in function: Grid::set(x,y.value) is out of bounds."));
     }
     Cell &old_value = Grid::operator()(x,y);
@@ -433,10 +433,10 @@ void Grid::set(const unsigned int x, const unsigned int y, const Cell value){
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-Cell& Grid::operator()(unsigned int x, unsigned int y){
-    if(x > width){
+Cell& Grid::operator()(int x, int y){
+    if(x > (int)width || x < 0){
         throw(std::out_of_range("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
-    } else if (y > height){
+    } else if (y > (int)height || y < 0){
         throw(std::out_of_range("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
     }
     return grid[get_index(x,y)];
@@ -472,10 +472,10 @@ Cell& Grid::operator()(unsigned int x, unsigned int y){
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-const Cell& Grid::operator()(unsigned int x, unsigned int y) const{
-    if(x > width){
+const Cell& Grid::operator()(int x, int y) const{
+    if(x > (int)width || x < 0){
         throw(std::out_of_range("The value inputted for x in function: Grid::operator(x,y) is out of bounds."));
-    } else if (y > height){
+    } else if (y > (int)height || y < 0){
         throw(std::out_of_range("The value inputted for y in function: Grid::operator(x,y) is out of bounds."));
     }
     return grid[get_index(x,y)];
@@ -593,11 +593,11 @@ void Grid::merge(const Grid& other, int x0, int y0, bool alive_only){
         for(unsigned int j=0; j<other.height; j++){
             for(unsigned int i=0; i<other.width; i++){
                 if(!alive_only){
-                set(i+x0,j+y0, other.grid[(j*(other.width))+i]);
+                set((int)i+x0,(int)j+y0, other.grid[(j*(other.width))+i]);
                 }
                 if(alive_only){
-                    if(get(i+x0,j+y0) != ALIVE){
-                        set(i+x0,j+y0 ,other.grid[(j*(other.width))+i]);
+                    if(get((int)i+x0,(int)j+y0) != ALIVE){
+                        set((int)i+x0,(int)j+y0 ,other.grid[(j*(other.width))+i]);
                     }
                 }
             }
@@ -641,15 +641,15 @@ Grid Grid::rotate(int rotation) const{
             if(rotation == 1){
                 new_grid.width = height;
                 new_grid.height = width;
-                new_grid.set(i,j, get(j,height-1-i));
+                new_grid.set((int)i,(int)j, get((int)j,(int)(height-1-i)));
             } else if ( rotation == 2){
-                new_grid.set(i,j, get(width-i-1,height-j-1));
+                new_grid.set((int)i,(int)j, get((int)(width-i-1),(int)(height-j-1)));
             } else if (rotation == 3){
                 new_grid.width = height;
                 new_grid.height = width;
-                new_grid.set(i,j, get(width-1-j,i));
+                new_grid.set((int)i,(int)j, get((int)(width-1-j),(int)i));
             } else{
-                new_grid.set(i,j, get(i,j));
+                new_grid.set((int)i,(int)j, get((int)i,(int)j));
             }
         }
     }
@@ -702,7 +702,7 @@ std::ostream& operator<<(std::ostream& output_stream, const Grid& grid){
     for(unsigned int j=0; j< grid.get_height(); j++){
         output_stream << "|";
         for(unsigned int i=0; i< grid.get_width(); i++){
-            if(grid.get(i,j) == Cell::ALIVE){
+            if(grid.get((int)i,(int)j) == Cell::ALIVE){
                 output_stream << "#";
             }
             else{

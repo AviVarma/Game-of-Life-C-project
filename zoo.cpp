@@ -224,9 +224,9 @@ void Zoo::save_ascii(const std::string& path, const Grid& grid){
         file << grid.get_width() << " " << grid.get_height() << "\n";
         for(unsigned int j = 0; j<grid.get_height(); j++){
             for(unsigned int i = 0; i<grid.get_width(); i++){
-                if(grid.get(i,j) == DEAD){
+                if(grid.get((int)i,(int)j) == DEAD){
                     file << (char) DEAD;
-                } else if (grid.get(i,j) == ALIVE){
+                } else if (grid.get((int)i,(int)j) == ALIVE){
                     file << (char) ALIVE;
                 }
             }
@@ -355,7 +355,7 @@ void Zoo::save_binary(const std::string &path, const Grid &grid){
         for(unsigned int j=0; j<grid.get_height(); j++){
             for(unsigned int i=0; i<grid.get_width(); i++){
                 // set bit in bitset to true if ALIVE, else false.
-                bits.set(count % 8, grid.get(i, j) == Cell::ALIVE);
+                bits.set(count % 8, grid.get((int)i, (int)j) == Cell::ALIVE);
                 count++;
 
                 // once the bitset reaches 8 bits. write that byte into the file and reset the bitset array for next byte.
